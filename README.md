@@ -1,3 +1,3 @@
 # guahao
 hospital appointment registration system
-collaborators test
+collaborators tests
