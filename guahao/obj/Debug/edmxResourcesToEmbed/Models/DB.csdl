@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="guahaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="administrator">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hospital_id" Type="Int32" />
+    <Property Name="permission" Type="Int16" />
+  </EntityType>
+  <EntityType Name="appointment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="hospital_id" Type="Int32" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="doctor_id" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Byte" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="doctor" Relationship="Self.FK_APPOINTM_REFERENCE_DOCTOR" FromRole="appointment" ToRole="doctor" />
+    <NavigationProperty Name="hospital" Relationship="Self.FK_APPOINTM_REFERENCE_HOSPITAL" FromRole="appointment" ToRole="hospital" />
+    <NavigationProperty Name="user" Relationship="Self.FK_APPOINTM_REFERENCE_USER" FromRole="appointment" ToRole="user" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="introduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="hospital_id" Type="Int32" Nullable="false" />
+    <Property Name="is_good" Type="Byte" />
+    <NavigationProperty Name="hospital" Relationship="Self.FK_DEPARTME_REFERENCE_HOSPITAL" FromRole="department" ToRole="hospital" />
+    <NavigationProperty Name="doctor" Relationship="Self.FK_DOCTOR_REFERENCE_DEPARTME" FromRole="department" ToRole="doctor" />
+  </EntityType>
+  <EntityType Name="doctor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="introduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rank" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="specialty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="department_id" Type="Int32" />
+    <Property Name="is_good" Type="Byte" />
+    <NavigationProperty Name="appointment" Relationship="Self.FK_APPOINTM_REFERENCE_DOCTOR" FromRole="doctor" ToRole="appointment" />
+    <NavigationProperty Name="department" Relationship="Self.FK_DOCTOR_REFERENCE_DEPARTME" FromRole="doctor" ToRole="department" />
+    <NavigationProperty Name="visit" Relationship="Self.FK_VISIT_REFERENCE_DOCTOR" FromRole="doctor" ToRole="visit" />
+  </EntityType>
+  <EntityType Name="hospital">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="introduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rank" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="Int32" />
+    <Property Name="city" Type="Int32" />
+    <NavigationProperty Name="appointment" Relationship="Self.FK_APPOINTM_REFERENCE_HOSPITAL" FromRole="hospital" ToRole="appointment" />
+    <NavigationProperty Name="department" Relationship="Self.FK_DEPARTME_REFERENCE_HOSPITAL" FromRole="hospital" ToRole="department" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="real_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="social_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="is_activated" Type="Byte" />
+    <Property Name="credict_rank" Type="Int16" />
+    <Property Name="picture" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="appointment" Relationship="Self.FK_APPOINTM_REFERENCE_USER" FromRole="user" ToRole="appointment" />
+  </EntityType>
+  <EntityType Name="visit">
+    <Key>
+      <PropertyRef Name="date" />
+      <PropertyRef Name="hosipital_id" />
+    </Key>
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="hosipital_id" Type="Int32" Nullable="false" />
+    <Property Name="number" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="doctor" Relationship="Self.FK_VISIT_REFERENCE_DOCTOR" FromRole="visit" ToRole="doctor" />
+  </EntityType>
+  <Association Name="FK_APPOINTM_REFERENCE_DOCTOR">
+    <End Role="doctor" Type="Self.doctor" Multiplicity="0..1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="doctor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="doctor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APPOINTM_REFERENCE_HOSPITAL">
+    <End Role="hospital" Type="Self.hospital" Multiplicity="0..1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hospital">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="hospital_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APPOINTM_REFERENCE_USER">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="appointment" Type="Self.appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="appointment">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DEPARTME_REFERENCE_HOSPITAL">
+    <End Role="hospital" Type="Self.hospital" Multiplicity="1" />
+    <End Role="department" Type="Self.department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hospital">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="department">
+        <PropertyRef Name="hospital_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCTOR_REFERENCE_DEPARTME">
+    <End Role="department" Type="Self.department" Multiplicity="0..1" />
+    <End Role="doctor" Type="Self.doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="doctor">
+        <PropertyRef Name="department_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VISIT_REFERENCE_DOCTOR">
+    <End Role="doctor" Type="Self.doctor" Multiplicity="1" />
+    <End Role="visit" Type="Self.visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="doctor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="visit">
+        <PropertyRef Name="hosipital_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="guahaoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="administrator" EntityType="Self.administrator" />
+    <EntitySet Name="appointment" EntityType="Self.appointment" />
+    <EntitySet Name="department" EntityType="Self.department" />
+    <EntitySet Name="doctor" EntityType="Self.doctor" />
+    <EntitySet Name="hospital" EntityType="Self.hospital" />
+    <EntitySet Name="user" EntityType="Self.user" />
+    <EntitySet Name="visit" EntityType="Self.visit" />
+    <AssociationSet Name="FK_APPOINTM_REFERENCE_DOCTOR" Association="Self.FK_APPOINTM_REFERENCE_DOCTOR">
+      <End Role="doctor" EntitySet="doctor" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APPOINTM_REFERENCE_HOSPITAL" Association="Self.FK_APPOINTM_REFERENCE_HOSPITAL">
+      <End Role="hospital" EntitySet="hospital" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APPOINTM_REFERENCE_USER" Association="Self.FK_APPOINTM_REFERENCE_USER">
+      <End Role="user" EntitySet="user" />
+      <End Role="appointment" EntitySet="appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DEPARTME_REFERENCE_HOSPITAL" Association="Self.FK_DEPARTME_REFERENCE_HOSPITAL">
+      <End Role="hospital" EntitySet="hospital" />
+      <End Role="department" EntitySet="department" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCTOR_REFERENCE_DEPARTME" Association="Self.FK_DOCTOR_REFERENCE_DEPARTME">
+      <End Role="department" EntitySet="department" />
+      <End Role="doctor" EntitySet="doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VISIT_REFERENCE_DOCTOR" Association="Self.FK_VISIT_REFERENCE_DOCTOR">
+      <End Role="doctor" EntitySet="doctor" />
+      <End Role="visit" EntitySet="visit" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
