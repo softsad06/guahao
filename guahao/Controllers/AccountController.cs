@@ -19,58 +19,63 @@ namespace guahao.Controllers
 
         public ActionResult Login()
         {
-            if (string.IsNullOrWhiteSpace(Request.Form["uname"]) == false &&
-            string.IsNullOrWhiteSpace(Request.Form["upwd"]) == false)
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(user userinfo)
+        {
+            guahaoEntities es = new guahaoEntities();
+            var userindb = from s in es.user
+                           select s;
+            userinfo.password = Md5Helper(userinfo.password);
+            foreach (var user in userindb)
             {
-                guahaoEntities es = new guahaoEntities();
-                var userinfo = from s in es.user
-                                   select s;
-                string uname = Request.Form["uname"];
-                string upwd = Request.Form["upwd"];
-                upwd = Md5Helper(upwd);
-                foreach (var user in userinfo)
+                if (user.name == userinfo.name&&user.password==userinfo.password)
                 {
-                    if (user.name == uname && upwd == user.password)
-                    {
-                        Response.Redirect("~/Home/Index");
-                    }
-
+                    Response.Redirect("~/Home/Index");
                 }
-                Session["user"] = uname;
 
             }
+            Session["user"] = userinfo.name;
             return View();
         }
 
+
         public ActionResult Signup()
         {
-            //ViewBag.Message = "name=" + Request.Form["uname"].ToString();
-            if (string.IsNullOrWhiteSpace(Request.Form["uname"]) == false &&
-            string.IsNullOrWhiteSpace(Request.Form["upwd"]) == false)
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Signup([Bind(Include ="name,password")]user userinfo,string password2)
+        {
+            if (userinfo.password==password2)
             {
                 guahaoEntities es = new guahaoEntities();
-                var userinfo = from s in es.user
+                var userindb = from s in es.user
                                    select s;
-                string uname = Request.Form["uname"];
-                string upwd = Request.Form["upwd"];
-                string upwd2 = Request.Form["upwd2"];
-                int newid = userinfo.Count()+1;
-
-                if (upwd==upwd2)
+                int newid = userindb.Count()+1;
+                foreach (var user in userindb)
                 {
-                    foreach (var user in userinfo)
-                    {
-                        if (user.name == uname)
-                            return View();
-
-                    }
-                    upwd = Md5Helper(upwd);
-                    es.user.Add(new user { id=newid,name = uname, password = upwd,
-                        real_name ="",social_id="", tel="",email="",is_activated=0,
-                    credict_rank=0,picture=""});
-                    es.SaveChanges();
-                    Response.Redirect("Login");
+                    if (user.name == userinfo.name)
+                        return View();
                 }
+                userinfo.password = Md5Helper(userinfo.password);
+                es.user.Add(new user
+                {
+                    id = newid,
+                    name = userinfo.name,
+                    password = userinfo.password,
+                    real_name = "",
+                    social_id = "",
+                    tel = "",
+                    email = "",
+                    is_activated = 0,
+                    credict_rank = 0,
+                    picture = ""
+                });
+                es.SaveChanges();
+                Response.Redirect("Login");
 
             }
             return View();
@@ -82,6 +87,22 @@ namespace guahao.Controllers
             Response.Redirect("~/Home/Index");
             return View();
 
+        }
+
+        public ActionResult UserInfo()
+        {
+            Session["user"] = "keven";
+            if (Session["user"]!=null)
+            {
+                string uname = Session["user"].ToString();
+                guahaoEntities es = new guahaoEntities();
+                var userinfo = from s in es.user
+                               where s.name==uname
+                               select s;
+                return View("UserInfo", userinfo.FirstOrDefault());
+
+            }
+            return View();
         }
 
         public ActionResult AddUserInfo()

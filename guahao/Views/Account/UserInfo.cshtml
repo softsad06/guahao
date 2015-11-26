@@ -1,5 +1,116 @@
-﻿
+﻿@model guahao.Models.user
+
 @{
     ViewBag.Title = "UserInfo";
 }
 
+<h2>UserInfo</h2>
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.real_name)
+        </dt>
+
+        <dd>
+            @if (Model.real_name == "")
+            {
+              
+                @Html.Label( "未填写")
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.real_name)
+            }
+                
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.social_id)
+        </dt>
+
+        <dd>
+            @if (Model.social_id == "")
+            {
+                @Html.Label("未填写")
+            }
+            else
+            {
+                 @Html.DisplayFor(model => model.social_id)
+             }
+          
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tel)
+        </dt>
+
+        <dd>
+            @if (Model.tel == "")
+            {
+                 @Html.Label("未填写")
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.tel)
+            }
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @if (Model.email == "")
+            {
+                @Html.Label("未填写")
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.email)
+            }
+            
+        </dd>
+
+        <dt>
+           @Html.Label("身份验证")
+        </dt>
+
+        <dd>
+            @if (Model.is_activated == 1)
+            {
+                @Html.Label("已验证")
+            }
+            else
+            {
+                @Html.Label("未验证")
+            }
+               
+           
+        </dd>
+
+        <dt>
+            @Html.Label("信用等级")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.credict_rank)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("修改信息", "AddUserInfo", "Account") |
+    @Html.ActionLink("回到主页", "Index","Home")
+</p>
