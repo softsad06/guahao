@@ -91,7 +91,7 @@ namespace guahao.Controllers
 
         public ActionResult UserInfo()
         {
-            Session["user"] = "keven";
+            
             if (Session["user"]!=null)
             {
                 string uname = Session["user"].ToString();
@@ -104,34 +104,28 @@ namespace guahao.Controllers
             }
             return View();
         }
-
         public ActionResult AddUserInfo()
         {
+            return View();
+        }
 
-            if (string.IsNullOrWhiteSpace(Request.Form["urealname"]) == false &&
-           string.IsNullOrWhiteSpace(Request.Form["urealid"]) == false)
-            {
-                guahaoEntities es = new guahaoEntities();
-                var userinfo = from s in es.user
-                                   select s;
-
-                string uname = Request.Form["urealname"];
-                string upwd = Request.Form["urealid"];
-
-                foreach (var user in userinfo)
-                {
-                    if (user.name == uname)
-                    {
-                        return View();
-                    }
-
-                }
-
-                es.user.Add(new user { name = uname, password = upwd });
-                es.SaveChanges();
-                Response.Redirect("~/Home/Index");
-
-            }
+        [HttpPost]
+        public ActionResult AddUserInfo([Bind(Include ="picture,email,tel,social_id,real_name")]user userinfo)
+        {
+            
+            string uname = Session["user"].ToString();
+            guahaoEntities es = new guahaoEntities();
+            var userdb = from s in es.user
+                           where s.name == uname
+                           select s;
+            user userchange = userdb.FirstOrDefault();
+            userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
+            userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
+            userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
+            userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
+            userchange.picture = userinfo.picture != null ? userinfo.picture : userchange.picture;
+            es.SaveChanges();
+            Response.Redirect("~/Home/Index");
             return View();
         }
 
