@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using System.Web.Mvc;
+using System.Security.Cryptography;
 using guahao.Models;
 
 namespace guahao.Controllers
@@ -25,13 +27,12 @@ namespace guahao.Controllers
                                    select s;
                 string uname = Request.Form["uname"];
                 string upwd = Request.Form["upwd"];
-
+                upwd = Md5Helper(upwd);
                 foreach (var user in userinfo)
                 {
                     if (user.name == uname && upwd == user.password)
                     {
                         Response.Redirect("~/Home/Index");
-                        //return View();
                     }
 
                 }
@@ -55,17 +56,15 @@ namespace guahao.Controllers
                 string upwd2 = Request.Form["upwd2"];
                 int newid = userinfo.Count()+1;
 
-                if(upwd==upwd2)
+                if (upwd==upwd2)
                 {
                     foreach (var user in userinfo)
                     {
                         if (user.name == uname)
-                        {
                             return View();
-                        }
 
                     }
-
+                    upwd = Md5Helper(upwd);
                     es.user.Add(new user { id=newid,name = uname, password = upwd,
                         real_name ="",social_id="", tel="",email="",is_activated=0,
                     credict_rank=0,picture=""});
@@ -73,11 +72,8 @@ namespace guahao.Controllers
                     Response.Redirect("Login");
                 }
 
-               
-
             }
             return View();
-
         }
 
         public ActionResult Logout()
@@ -116,6 +112,16 @@ namespace guahao.Controllers
 
             }
             return View();
+        }
+
+        public string Md5Helper(string password)
+        {
+
+            byte[] result = Encoding.Default.GetBytes(password);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] output = md5.ComputeHash(result);
+            password = BitConverter.ToString(output).Replace("-", "");
+            return password;
         }
     }
 
