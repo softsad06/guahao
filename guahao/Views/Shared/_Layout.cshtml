@@ -27,7 +27,7 @@
                     <li>@Html.ActionLink("注册", "Signup", "Account")</li>
                     @if (Session["user"] != null)
                     {
-                        <li>@Html.ActionLink("你好," + @Session["user"], "Index", "Home")</li>
+                        <li>@Html.ActionLink("你好," + @Session["user"], "UserInfo", "Account")</li>
                         <li>@Html.ActionLink("注销", "Logout", "Account")</li>
                     }
                 </ul>
