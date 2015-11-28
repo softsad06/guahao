@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Text;
 using System.Web.Mvc;
-using System.Security.Cryptography;
 using guahao.Models;
 
 namespace guahao.Controllers
 {
     public class AccountController : Controller
     {
+        private DB db = new DB();
+
         // GET: Account
         public ActionResult Index()
         {
@@ -19,25 +19,19 @@ namespace guahao.Controllers
 
         public ActionResult Login()
         {
-
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(user userinfo)
         {
-            guahaoEntities es = new guahaoEntities();
-            var userindb = from s in es.user
-                           select s;
-            userinfo.password = Md5Helper(userinfo.password);
-            foreach (var user in userindb)
+            if (ModelState.IsValid)
             {
-                if (user.name == userinfo.name&&user.password==userinfo.password)
-                {
-                    Response.Redirect("~/Home/Index");
-                }
-
+                userinfo.password = userinfo.Md5Helper(userinfo.password);
+                user u = db.user.First(x => x.password == userinfo.password);
+                Session["user"] = userinfo.name;
+                return RedirectToAction("Index", "Home");
             }
-            Session["user"] = userinfo.name;
             return View();
         }
 
@@ -48,36 +42,18 @@ namespace guahao.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signup([Bind(Include ="name,password")]user userinfo,string password2)
+        public ActionResult Signup(user userinfo,string password2)
         {
-            if (userinfo.password==password2)
+            if (ModelState.IsValid&&userinfo.password==password2 )
             {
-                guahaoEntities es = new guahaoEntities();
-                var userindb = from s in es.user
-                                   select s;
-                int newid = userindb.Count()+1;
-                foreach (var user in userindb)
-                {
-                    if (user.name == userinfo.name)
-                        return View();
-                }
-                userinfo.password = Md5Helper(userinfo.password);
-                es.user.Add(new user
-                {
-                    id = newid,
-                    name = userinfo.name,
-                    password = userinfo.password,
-                    real_name = "",
-                    social_id = "",
-                    tel = "",
-                    email = "",
-                    is_activated = 0,
-                    credict_rank = 0,
-                    picture = ""
-                });
-                es.SaveChanges();
-                Response.Redirect("Login");
-
+                user u = db.user.FirstOrDefault(x => x.password == password2);
+                if (u != null)
+                    return View();
+                userinfo.id = db.user.Count() + 1;
+                userinfo.password = userinfo.Md5Helper(userinfo.password);
+                db.user.Add(userinfo);
+                db.SaveChanges();
+                return RedirectToAction("Login", "Account");
             }
             return View();
         }
@@ -85,8 +61,7 @@ namespace guahao.Controllers
         public ActionResult Logout()
         {
             Session.Remove("user");
-            Response.Redirect("~/Home/Index");
-            return View();
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -96,11 +71,8 @@ namespace guahao.Controllers
             if (Session["user"]!=null)
             {
                 string uname = Session["user"].ToString();
-                guahaoEntities es = new guahaoEntities();
-                var userinfo = from s in es.user
-                               where s.name==uname
-                               select s;
-                return View("UserInfo", userinfo.FirstOrDefault());
+                user u = db.user.FirstOrDefault(x => x.name == uname);
+                return View("UserInfo", u);
 
             }
             return View();
@@ -113,31 +85,20 @@ namespace guahao.Controllers
         [HttpPost]
         public ActionResult AddUserInfo([Bind(Include ="picture,email,tel,social_id,real_name")]user userinfo)
         {
-            
-            string uname = Session["user"].ToString();
-            guahaoEntities es = new guahaoEntities();
-            var userdb = from s in es.user
-                           where s.name == uname
-                           select s;
-            user userchange = userdb.FirstOrDefault();
-            userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
-            userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
-            userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
-            userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
-            userchange.picture = userinfo.picture != null ? userinfo.picture : userchange.picture;
-            es.SaveChanges();
-            Response.Redirect("~/Home/Index");
+            if (ModelState.IsValid)
+            {
+
+                string uname = Session["user"].ToString();
+                user userchange = db.user.First(x => x.name == uname);
+                userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
+                userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
+                userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
+                userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
+                userchange.picture = userinfo.picture != null ? userinfo.picture : userchange.picture;
+                db.SaveChanges();
+                return RedirectToAction("UserInfo", "Account");
+            }
             return View();
-        }
-
-        public string Md5Helper(string password)
-        {
-
-            byte[] result = Encoding.Default.GetBytes(password);
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] output = md5.ComputeHash(result);
-            password = BitConverter.ToString(output).Replace("-", "");
-            return password;
         }
     }
 

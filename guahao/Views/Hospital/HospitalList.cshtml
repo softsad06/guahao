@@ -1,11 +1,15 @@
 ﻿
-
+@model IEnumerable<guahao.Models.hospital> 
 @{
     ViewBag.Title = "HospitalList";
 }
 
 <h2>HospitalList</h2>
 
+@foreach (var hos in Model)
+{
+    <div class="col-md-10">
+        @Html.ActionLink(@hos.name, "Detail/" + @hos.id, "Hospital") 
+    </div>
 
- <li> <a href="Detail">@ViewBag.name</a></li>
-
+}

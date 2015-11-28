@@ -10,6 +10,7 @@ namespace guahao.Controllers
 {
     public class HospitalController : Controller
     {
+        private DB db = new DB();
         // GET: Hospital
         public ActionResult Index()
         {
@@ -18,15 +19,22 @@ namespace guahao.Controllers
 
         public ActionResult HospitalList(string cityname)
         {
-            guahaoEntities es = new guahaoEntities();
-            var db = new guahaoEntities();
-            //var hos = db.hospital.Where(o => o.city.Equals(1)).FirstOrDefault();
-            var hos = (from h in es.hospital
-                               where h.city==1
-                               select h.name).FirstOrDefault();
-
-            ViewBag.name = hos;         
+            if (ModelState.IsValid)
+            {
+                var hos = db.hospital.Where(o => o.city == 1);
+                return View(hos.ToList());
+            }
             return View();
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            var hosDetail = db.hospital.Find(id);
+            if (hosDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hosDetail);
         }
     }
 }
