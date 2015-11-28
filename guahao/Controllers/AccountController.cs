@@ -19,6 +19,7 @@ namespace guahao.Controllers
 
         public ActionResult Login()
         {
+
             return View();
         }
         [HttpPost]
