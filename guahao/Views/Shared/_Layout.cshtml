@@ -23,13 +23,17 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
                     <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("登陆", "Login", "Account")</li>
-                    <li>@Html.ActionLink("注册", "Signup", "Account")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     @if (Session["user"] != null)
                     {
                         <li>@Html.ActionLink("你好," + @Session["user"], "UserInfo", "Account")</li>
                         <li>@Html.ActionLink("注销", "Logout", "Account")</li>
-                    }
+                    } 
+
+                    <li>@Html.ActionLink("登陆", "Login", "Account")</li>
+                    <li>@Html.ActionLink("注册", "Signup", "Account")</li>
+
                 </ul>
 
             </div>
