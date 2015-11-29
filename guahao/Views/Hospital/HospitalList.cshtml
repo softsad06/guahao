@@ -6,10 +6,13 @@
 
 <h2>HospitalList</h2>
 
-@foreach (var hos in Model)
-{
-    <div class="col-md-10">
-        @Html.ActionLink(@hos.name, "Detail/" + @hos.id, "Hospital") 
-    </div>
+<div class="show">
+    @foreach (var hospital in Model)
+    {
+        <div class="col-md-4 jumbotron">
+            @Html.ActionLink(@hospital.name, "HospitalDetail/" + @hospital.id, "Hospital")
+        </div>
 
-}
+    }
+
+</div>

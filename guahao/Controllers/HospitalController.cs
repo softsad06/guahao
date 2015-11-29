@@ -27,7 +27,7 @@ namespace guahao.Controllers
             return View();
         }
 
-        public ActionResult Detail(int? id)
+        public ActionResult HospitalDetail(int? id)
         {
             var hosDetail = db.hospital.Find(id);
             if (hosDetail == null)
@@ -36,5 +36,46 @@ namespace guahao.Controllers
             }
             return View(hosDetail);
         }
+
+        public ActionResult DepartmentList(int ?id)
+        { 
+            if (ModelState.IsValid)
+            {
+                var dep = db.department.Where(o => o.hospital_id==id);
+                return View(dep.ToList());
+            }
+            return View();
+        }
+
+        public ActionResult DepartmentDetail(int? id)
+        {
+            var depDetail = db.department.Find(id);
+            if (depDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(depDetail);
+        }
+
+        public ActionResult DoctorList(int ?id)
+        {
+            if (ModelState.IsValid)
+            {
+                var doc = db.doctor.Where(o => o.department_id == id);
+                return View(doc.ToList());
+            }
+            return View();
+        }
+
+        public ActionResult DoctorDetail(int? id)
+        {
+            var docDetail = db.doctor.Find(id);
+            if (docDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(docDetail);
+        }
+
     }
 }

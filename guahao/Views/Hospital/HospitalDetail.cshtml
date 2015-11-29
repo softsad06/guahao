@@ -71,5 +71,6 @@
 </div>
 <p>
 
-    @Html.ActionLink("回到主页", "Index")
+    @Html.ActionLink("回到主页", "Index", "Home")
+    @Html.ActionLink("选择科室", "DepartmentList/"+@Model.id,"Hospital")
 </p>
