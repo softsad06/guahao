@@ -28,7 +28,7 @@ namespace guahao.Controllers
             if (ModelState.IsValid)
             {
                 userinfo.password = userinfo.Md5Helper(userinfo.password);
-                user u = db.user.First(x => x.password == userinfo.password);
+                user u = db.user.FirstOrDefault(x => x.password == userinfo.password);
                 Session["user"] = userinfo.name;
                 return RedirectToAction("Index", "Home");
             }
@@ -89,7 +89,7 @@ namespace guahao.Controllers
             {
 
                 string uname = Session["user"].ToString();
-                user userchange = db.user.First(x => x.name == uname);
+                user userchange = db.user.FirstOrDefault(x => x.name == uname);
                 userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
                 userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
                 userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;

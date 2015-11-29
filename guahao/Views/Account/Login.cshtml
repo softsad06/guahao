@@ -23,10 +23,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label  class="control-label col-md-2" for="inputpassworda">确认密码</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                <input type="password" class="form-control text-box single-line" name="password">
             </div>
         </div>
 
