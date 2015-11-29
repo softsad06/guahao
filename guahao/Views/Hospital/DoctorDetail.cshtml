@@ -1,0 +1,67 @@
+﻿@model guahao.Models.doctor
+
+@{
+    ViewBag.Title = "DoctorDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DoctorDetail</h2>
+
+<div>
+    <h4>doctor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.department.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.introduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.introduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.specialty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.specialty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_good)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_good)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("回到主页", "Index", "Home")
+    @Html.ActionLink("预约医生", "DoctorList/" + @Model.id, "Hospital")
+</p>

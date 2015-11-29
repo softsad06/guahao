@@ -227,7 +227,11 @@
     <Content Include="Views\Account\UserInfo.cshtml" />
     <Content Include="Views\Hospital\HospitalList.cshtml" />
     <Content Include="Views\Account\Signup.cshtml" />
-    <Content Include="Views\Hospital\Detail.cshtml" />
+    <Content Include="Views\Hospital\HospitalDetail.cshtml" />
+    <Content Include="Views\Hospital\DepartmentDetail.cshtml" />
+    <Content Include="Views\Hospital\DepartmentList.cshtml" />
+    <Content Include="Views\Hospital\DoctorList.cshtml" />
+    <Content Include="Views\Hospital\DoctorDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
