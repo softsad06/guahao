@@ -21,7 +21,8 @@ namespace guahao.Controllers
         {
             if (ModelState.IsValid)
             {
-                var hos = db.hospital.Where(o => o.city == 1);
+                int city_id = db.city.FirstOrDefault(o=>o.name==cityname).id;
+                var hos = db.hospital.Where(o => o.city == city_id);
                 return View(hos.ToList());
             }
             return View();

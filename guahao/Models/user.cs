@@ -20,29 +20,23 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        
+
         [StringLength(50)]
-        [Display(Name = "name")]
         public string name { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "password")]
         public string password { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "real name")]
         public string real_name { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "ID number")]
         public string social_id { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "phone number")]
         public string tel { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "email")]
         public string email { get; set; }
 
         public byte? is_activated { get; set; }
@@ -50,7 +44,6 @@ namespace guahao.Models
         public short? credict_rank { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "picture")]
         public string picture { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

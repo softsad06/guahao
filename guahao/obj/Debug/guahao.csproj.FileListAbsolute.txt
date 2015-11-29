@@ -66,4 +66,3 @@ E:\myproject\C#\guahao\guahao\bin\Microsoft.Owin.Security.Twitter.xml
 E:\myproject\C#\guahao\guahao\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\myproject\C#\guahao\guahao\obj\Debug\guahao.dll
 E:\myproject\C#\guahao\guahao\obj\Debug\guahao.pdb
-E:\myproject\C#\guahao\guahao\obj\Debug\guahao.csprojResolveAssemblyReference.cache

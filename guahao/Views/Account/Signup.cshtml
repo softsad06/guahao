@@ -15,7 +15,7 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.name, "用户名",htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
@@ -23,20 +23,20 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="inputpassworda">密码</label>
+            @Html.LabelFor(model => model.password, "密码", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="password" class="form-control text-box single-line" name="password">
+                @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
-            <label  class="control-label col-md-2" for="inputpassworda">确认密码</label>
+            @Html.LabelFor(model => model.password, "确认密码", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="password" class="form-control text-box single-line" name="password2">
+                @Html.Password("password2",null, new { @class = "form-control" })
             </div>
         </div>
-
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button type="submit" class="btn btn-primary btn-lg">注册</button>

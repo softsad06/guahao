@@ -8,12 +8,13 @@ namespace guahao.Models
     public partial class DB : DbContext
     {
         public DB()
-            : base("name=DB")
+            : base("name=DB1")
         {
         }
 
         public virtual DbSet<administrator> administrator { get; set; }
         public virtual DbSet<appointment> appointment { get; set; }
+        public virtual DbSet<city> city { get; set; }
         public virtual DbSet<department> department { get; set; }
         public virtual DbSet<doctor> doctor { get; set; }
         public virtual DbSet<hospital> hospital { get; set; }
@@ -28,6 +29,10 @@ namespace guahao.Models
 
             modelBuilder.Entity<administrator>()
                 .Property(e => e.password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<city>()
+                .Property(e => e.name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<department>()

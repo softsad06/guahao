@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="Models\administrator.cs" />
     <Compile Include="Models\appointment.cs" />
+    <Compile Include="Models\city.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\department.cs" />
     <Compile Include="Models\doctor.cs" />
