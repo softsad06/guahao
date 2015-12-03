@@ -63,5 +63,5 @@
 </div>
 <p>
     @Html.ActionLink("回到主页", "Index", "Home")
-    @Html.ActionLink("预约医生", "DoctorList/" + @Model.id, "Hospital")
+    @Html.ActionLink("预约医生", "Create", "Appointments", new { did = @Model.id },null)
 </p>
