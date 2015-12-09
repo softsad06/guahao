@@ -18,18 +18,13 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        [StringLength(50)]
-        public string name { get; set; }
-
-        [StringLength(50)]
-        public string introduction { get; set; }
-
         [StringLength(20)]
-        public string tel { get; set; }
+        public string name { get; set; }
 
         public int hospital_id { get; set; }
 
-        public byte? is_good { get; set; }
+        [StringLength(80)]
+        public string url { get; set; }
 
         public virtual hospital hospital { get; set; }
 
