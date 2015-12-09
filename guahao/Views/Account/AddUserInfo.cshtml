@@ -15,11 +15,6 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="picture">头像</label> <br />
-            <input  type="file" id="picture" name="picture" />
-        </div>
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.real_name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,9 +50,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary btn-lg">修改</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="bb">修改</button>
                 <button type="reset" class="btn btn-primary btn-lg">重置</button>
             </div>
+        </div>
+        <div id="pp" class="col-md-offset-2 col-md-10">
         </div>
     </div>
 }
@@ -65,3 +62,16 @@
 <div>
     @Html.ActionLink("返回主页", "Index")
 </div>
+<script>
+function OnButtonClick()
+{
+    var real_name = $("#real_name").val();
+    var social_id = $("#social_id").val();
+    if (real_name!=""&&social_id!="")
+	    $("#pp").text("实名认证信息已提交，等待管理员审核...");
+}
+$(function()
+{
+	$("#bb").click(OnButtonClick);
+});
+</script>

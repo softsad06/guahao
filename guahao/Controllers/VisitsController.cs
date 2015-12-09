@@ -57,7 +57,7 @@ namespace guahao.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.hosipital_id);
+            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.doctor_id);
             return View(visit);
         }
 
@@ -73,7 +73,7 @@ namespace guahao.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.hosipital_id);
+            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.doctor_id);
             return View(visit);
         }
 
@@ -90,7 +90,7 @@ namespace guahao.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.hosipital_id);
+            ViewBag.hosipital_id = new SelectList(db.doctor, "id", "name", visit.doctor_id);
             return View(visit);
         }
 

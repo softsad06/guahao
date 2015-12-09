@@ -33,7 +33,8 @@ namespace guahao.Models
 
         public int? department_id { get; set; }
 
-        public byte? is_good { get; set; }
+        [StringLength(10)]
+        public string is_good { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<appointment> appointment { get; set; }

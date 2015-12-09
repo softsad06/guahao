@@ -43,5 +43,54 @@
                 <button type="reset" class="btn btn-primary btn-lg">重置</button>
             </div>
         </div>
+        <div id="pp" class="col-md-offset-2 col-md-10">
+        </div>
     </div>
 }
+
+<script>
+function OnUserName()
+{
+    $.ajax(
+    {
+        url: "/Account/CheckName",
+        type: "POST",
+        data: {
+            "name":$("#name").val()
+        },
+        success:function(data)
+        {
+            $("#pp").text(data);
+        },
+        error:function()
+        {
+            alert("请求失败");
+        }
+    });
+
+}
+
+function OnConfirmPassword()
+{
+    var password1 = $("#password").val();
+    var password2 = $("#password2").val();
+    if (password1 != password2)
+    {
+        $("#pp").text("密码不一致...");
+        return false;
+    }
+    else
+    {
+        $("#pp").text("密码一致");
+        return true;
+    }
+}
+$(function()
+{
+    $("#password2").change(OnConfirmPassword);
+});
+
+$(function () {
+    $("#name").change(OnUserName)
+});
+</script>

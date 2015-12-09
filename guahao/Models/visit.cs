@@ -10,15 +10,15 @@ namespace guahao.Models
     public partial class visit
     {
         [Key]
-        [Column(Order = 0, TypeName = "date")]
+        [Column(Order = 0)]
         public DateTime date { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int hosipital_id { get; set; }
+        public int doctor_id { get; set; }
 
-        public int? number { get; set; }
+        public DateTime? number { get; set; }
 
         public int? price { get; set; }
 

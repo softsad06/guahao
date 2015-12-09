@@ -4,9 +4,9 @@ namespace guahao.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Data.Entity.Spatial;
 
     [Table("user")]
     public partial class user
@@ -20,10 +20,12 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-
+        [Required]
         [StringLength(50)]
         public string name { get; set; }
 
+        [Required]
+        [MinLength(6)]
         [StringLength(50)]
         public string password { get; set; }
 
@@ -43,11 +45,9 @@ namespace guahao.Models
 
         public short? credict_rank { get; set; }
 
-        [StringLength(100)]
-        public string picture { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<appointment> appointment { get; set; }
+
 
         public string Md5Helper(string password)
         {
