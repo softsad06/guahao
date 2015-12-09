@@ -19,14 +19,13 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(20)]
         public string name { get; set; }
 
-        [StringLength(50)]
+        [Column(TypeName = "text")]
         public string introduction { get; set; }
 
-        [StringLength(200)]
-        public string rank { get; set; }
+        public int? rank { get; set; }
 
         [StringLength(50)]
         public string address { get; set; }
@@ -34,12 +33,19 @@ namespace guahao.Models
         [StringLength(20)]
         public string tel { get; set; }
 
-        public int? type { get; set; }
+        [StringLength(10)]
+        public string type { get; set; }
 
-        public int? city { get; set; }
+        [StringLength(10)]
+        public string city { get; set; }
+
+        [StringLength(80)]
+        public string url { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<appointment> appointment { get; set; }
+
+        public virtual city city1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<department> department { get; set; }

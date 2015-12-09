@@ -9,7 +9,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" >
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -32,9 +32,23 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary btn-lg">登陆</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="bb">登陆</button>
                 <button type="reset" class="btn btn-primary btn-lg">重置</button>
             </div>
         </div>
+        <div id="pp" class="col-md-offset-2 col-md-10">
+        </div>
     </div>
 }
+
+
+<script>
+function OnButtonClick()
+{
+	$("#pp").text("登陆中...");
+}
+$(function()
+{
+	$("#bb").click(OnButtonClick);
+});
+</script>

@@ -21,7 +21,7 @@ namespace guahao.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Login(user userinfo)
         {
@@ -43,12 +43,21 @@ namespace guahao.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Signup(user userinfo,string password2)
+        public string CheckName(string name)
         {
-            if (ModelState.IsValid&&userinfo.password==password2 )
+            user u = db.user.FirstOrDefault(x => x.name == name);
+            if (u != null)
+                return "该用户名已存在";
+            else
+                return "该用户名可用";
+        }
+
+        [HttpPost]
+        public ActionResult Signup([Bind(Include = "name,password")]user userinfo)
+        {
+            if (ModelState.IsValid)
             {
-                user u = db.user.FirstOrDefault(x => x.password == password2);
+                user u = db.user.FirstOrDefault(x => x.name == userinfo.name);
                 if (u != null)
                     return View();
                 userinfo.id = db.user.Count() + 1;
@@ -85,22 +94,16 @@ namespace guahao.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUserInfo([Bind(Include ="picture,email,tel,social_id,real_name")]user userinfo)
+        public ActionResult AddUserInfo([Bind(Include ="email,tel,social_id,real_name")]user userinfo)
         {
-            if (ModelState.IsValid)
-            {
-
-                string uname = Session["user"].ToString();
-                user userchange = db.user.FirstOrDefault(x => x.name == uname);
-                userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
-                userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
-                userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
-                userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
-                userchange.picture = userinfo.picture != null ? userinfo.picture : userchange.picture;
-                db.SaveChanges();
-                return RedirectToAction("UserInfo", "Account");
-            }
-            return View();
+            string uname = Session["user"].ToString();
+            user userchange = db.user.FirstOrDefault(x => x.name == uname);
+            userchange.email = userinfo.email != null ? userinfo.email : userchange.email;
+            userchange.tel = userinfo.tel != null ? userinfo.tel : userchange.tel;
+            userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
+            userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
+            db.SaveChanges();
+            return RedirectToAction("UserInfo", "Account");
         }
     }
 
