@@ -135,3 +135,4 @@ C:\Users\Kyrios\Documents\GitHub\guahao\guahao\bin\Microsoft.Owin.Security.Micro
 C:\Users\Kyrios\Documents\GitHub\guahao\guahao\obj\Debug\guahao.csprojResolveAssemblyReference.cache
 C:\Users\Kyrios\Documents\GitHub\guahao\guahao\obj\Debug\guahao.dll
 C:\Users\Kyrios\Documents\GitHub\guahao\guahao\obj\Debug\guahao.pdb
+E:\myproject\C#\guahao\guahao\obj\Debug\guahao.csprojResolveAssemblyReference.cache
