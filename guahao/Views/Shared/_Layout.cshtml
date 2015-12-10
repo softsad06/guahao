@@ -33,7 +33,11 @@
                         <li>@Html.ActionLink("你好," + @Session["user"], "UserInfo", "Account")</li>
                         <li>@Html.ActionLink("注销", "Logout", "Account")</li>
                     } 
-
+                    @if (Session["admin"] != null)
+                    {
+                        <li>@Html.ActionLink("管理员你好," + @Session["admin"], "Details", "Administrators")</li>
+                        <li>@Html.ActionLink("注销", "Logout", "Administrators")</li>
+                    } 
                     <li>@Html.ActionLink("登陆", "Login", "Account")</li>
                     <li>@Html.ActionLink("注册", "Signup", "Account")</li>
 

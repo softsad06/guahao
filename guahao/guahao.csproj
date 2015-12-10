@@ -247,6 +247,7 @@
     <Content Include="Views\Visits\Index.cshtml" />
     <Content Include="Views\Administrators\Details.cshtml" />
     <Content Include="Views\Administrators\Login.cshtml" />
+    <Content Include="Views\Administrators\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

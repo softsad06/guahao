@@ -29,32 +29,59 @@ namespace guahao.Controllers
      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "name,password,hospital_id")] administrator adm)
+        public ActionResult Login([Bind(Include = "name,password")] administrator adm)
         {
             if (ModelState.IsValid)
             {
-                var admin = db.administrator.FirstOrDefault(o => o.name == adm.name && o.password == adm.password && o.hospital_id == adm.hospital_id);
+                var admin = db.administrator.FirstOrDefault(o => o.name == adm.name && o.password == adm.password);
                 if (admin == null)
                     return View();
-                Session["user"] = admin.name;
+                Session["admin"] = admin.name;
                 return RedirectToAction("Details", "Administrators");
             }
             return View();
         }
 
-
-        public ActionResult Details(int? id)
+        public ActionResult Logout()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            administrator administrator = db.administrator.Find(id);
-            if (administrator == null)
+            Session.Remove("admin");
+            return RedirectToAction("Login", "Administrators");
+
+        }
+
+        public ActionResult Details()
+        {
+            string adminname = Session["admin"].ToString();
+            var admin = db.administrator.FirstOrDefault(o => o.name == adminname);
+            if (admin == null)
             {
                 return HttpNotFound();
             }
-            return View(administrator);
+            return View(admin);
+        }
+
+        public ActionResult UserList(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            administrator admin = db.administrator.Find(id);
+            if (admin == null)
+                return HttpNotFound();
+            var userlist = db.user.Where(o => o.is_activated == null);
+            return View(userlist.ToList());
+        }
+
+        public ActionResult ActivateUser(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            user userinfo = db.user.Find(id);
+            userinfo.is_activated = 1;
+            db.SaveChanges();
+
+            string admin= Session["admin"].ToString();
+            int adminid = db.administrator.FirstOrDefault(o => o.name == admin).id;
+            return RedirectToAction("UserList/" + adminid.ToString(), "Administrators");
         }
 
     }
