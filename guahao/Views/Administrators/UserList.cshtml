@@ -1,0 +1,71 @@
+﻿@model IEnumerable<guahao.Models.user>
+
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserList</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.real_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.social_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_activated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.credict_rank)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.real_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.social_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_activated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.credict_rank)
+        </td>
+        <td>
+            @Html.ActionLink("激活账户", "ActivateUser/"+@item.id, "Administrators") 
+        </td>
+    </tr>
+}
+
+</table>
