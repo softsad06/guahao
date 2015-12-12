@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Pay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Pay</h2>
+
+<div class="container">
+    <div class="show col-md-10">
+        <div class="form-group">
+            @Html.Label("支付单号", htmlAttributes: new { @class = "control-label col-md-2" })
+            @ViewBag.payNumber
+        </div>
+        <div class="form-group">
+            @Html.Label("支付金额", htmlAttributes: new { @class = "control-label col-md-2" })
+            @ViewBag.price
+        </div>
+        <div class="form-group">
+            <button type="button"  class="btn btn-default" >确认支付 </button>
+            <button type="button"  class="btn btn-default" >取消支付 </button>
+       </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+</div>

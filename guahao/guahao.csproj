@@ -174,7 +174,6 @@
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalController.cs" />
-    <Compile Include="Controllers\VisitsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,14 +239,10 @@
     <Content Include="Views\Appointments\Delete.cshtml" />
     <Content Include="Views\Appointments\Details.cshtml" />
     <Content Include="Views\Appointments\Index.cshtml" />
-    <Content Include="Views\Visits\Create.cshtml" />
-    <Content Include="Views\Visits\Delete.cshtml" />
-    <Content Include="Views\Visits\Details.cshtml" />
-    <Content Include="Views\Visits\Edit.cshtml" />
-    <Content Include="Views\Visits\Index.cshtml" />
     <Content Include="Views\Administrators\Details.cshtml" />
     <Content Include="Views\Administrators\Login.cshtml" />
     <Content Include="Views\Administrators\UserList.cshtml" />
+    <Content Include="Views\Appointments\Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

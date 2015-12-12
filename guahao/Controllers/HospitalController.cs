@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Web.Mvc;
 using guahao.Models;
+using System.Data.Entity;
 
 namespace guahao.Controllers
 {
@@ -65,18 +66,43 @@ namespace guahao.Controllers
             return View(depDetail);
         }
 
-        public ActionResult DoctorList(int ?id)
+
+        public ActionResult DoctorList(int ?id, string date)
         {
             if (ModelState.IsValid)
             {
-                var doc = db.doctor.Where(o => o.department_id == id);
-                return View(doc.ToList());
+                if (date != null)
+                {
+                    DateTime dt = Convert.ToDateTime(date);
+                    Session["appointment_date"] = date;
+                    var doc = from d in db.doctor
+                              where d.department_id == id
+                              join v in db.visit on d.id equals v.doctor_id
+                              where v.date == dt && v.number > 0
+                              select d;
+                    return View(doc.ToList());
+                }
+                else
+                {
+                    var doc = db.doctor.Where(d => d.department_id == id).ToList();
+                    return View(doc);
+                }
+
             }
             return View();
+        }
+        
+
+        public JsonResult LoadDoctor()
+        {
+             var doc = db.doctor.Where(o => o.department_id == 1);
+            return Json(doc);
+
         }
 
         public ActionResult DoctorDetail(int? id)
         {
+            Session["user"] = "lykeven";
             var docDetail = db.doctor.Find(id);
             if (docDetail == null)
             {
@@ -84,6 +110,7 @@ namespace guahao.Controllers
             }
             return View(docDetail);
         }
+
 
     }
 }
