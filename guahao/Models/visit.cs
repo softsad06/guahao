@@ -18,7 +18,7 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int doctor_id { get; set; }
 
-        public DateTime? number { get; set; }
+        public int number { get; set; }
 
         public int? price { get; set; }
 

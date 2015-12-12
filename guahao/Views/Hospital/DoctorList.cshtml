@@ -6,6 +6,18 @@
 }
 
 <h2>DoctorList</h2>
+
+<form class="form-horizontal" method="post" action="/Hospital/DoctorList">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label for="date"> 请选择一个日期</label>
+            <input type="date" id="date" name="date" />
+            <input type="hidden" name="id" value="@Model.FirstOrDefault().department_id" />
+            <button type="submit" class="btn btn-primary btn-lg">查询</button>
+        </div>
+    </div>
+</form>
+
 <div class="show">
     @foreach (var doctor in Model)
     {
