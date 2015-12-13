@@ -52,13 +52,16 @@ namespace guahao.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            if (Session["user"]==null)
+                return RedirectToAction("Login", "Account");
             string uname = Session["user"].ToString();
             user user = db.user.FirstOrDefault(a => a.name == uname);
-            if (user==null||user.is_activated==null)
+            // the case that user not login or not activated or has been black
+            if (user==null||user.is_activated==null||user.credict_rank<=0)
             {
                 return RedirectToAction("Login", "Account");
             }
-
+           
             ViewBag.user_id = user.id;
             ViewBag.user_name = uname;
             ViewBag.doctor_id = did;
@@ -67,6 +70,25 @@ namespace guahao.Controllers
             ViewData["id"] = IdGet() ;
             DateTime dt= Convert.ToDateTime(Session["appointment_date"].ToString());
             ViewBag.time = dt;
+
+            //the case that user had ordered more than 3 doctor at the same time
+            int  app = db.appointment.Count(o => o.user_id == user.id&&o.time==dt);
+            if (app>3)
+                return RedirectToAction("Index", "Home");
+
+            //the case order the same doctor
+            var appp = db.appointment.FirstOrDefault(o => o.user_id == user.id && o.time == dt && o.doctor_id == did);
+            if (appp!=null)
+                return RedirectToAction("Index");
+            //the case order the a doctor which in the same depatment
+            //var apppp = db.appointment.Include(o => o.doctor.department_id == doctor.department_id).FirstOrDefault(o => o.user_id == user.id && o.time == dt);
+            var apppp = from a in db.appointment
+                        where a.user_id == user.id && a.time == dt
+                        join d in db.doctor on a.doctor_id equals d.id
+                        where d.department_id==doctor.department_id
+                        select a;
+            if (apppp!=null)
+                return RedirectToAction("Index");
             var depart = db.department.FirstOrDefault(d=>d.id==doctor.department_id);
             var hospital = db.hospital.Find(depart.hospital_id);
             ViewBag.hospital_id = hospital.id;
@@ -110,7 +132,15 @@ namespace guahao.Controllers
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            DateTime today = DateTime.Now;
+            DateTime appday = (DateTime)appointment.time;
+            TimeSpan t = appday - today;
+            int days = t.Days;
+            //before the visit day
+            if (days >= 1)
+                return View(appointment);
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Appointments/Delete/5

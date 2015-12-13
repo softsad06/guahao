@@ -62,6 +62,7 @@ namespace guahao.Controllers
                     return View();
                 userinfo.id = db.user.Count() + 1;
                 userinfo.password = userinfo.Md5Helper(userinfo.password);
+                userinfo.credict_rank = 5;
                 db.user.Add(userinfo);
                 db.SaveChanges();
                 return RedirectToAction("Login", "Account");

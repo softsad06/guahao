@@ -62,15 +62,7 @@ namespace guahao.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<doctor>()
-                .Property(e => e.introduction)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<doctor>()
                 .Property(e => e.rank)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<doctor>()
-                .Property(e => e.specialty)
                 .IsUnicode(false);
 
             modelBuilder.Entity<doctor>()
@@ -82,30 +74,8 @@ namespace guahao.Models
                 .WithOptional(e => e.doctor)
                 .HasForeignKey(e => e.doctor_id);
 
-            modelBuilder.Entity<doctor>()
-                .HasMany(e => e.visit)
-                .WithRequired(e => e.doctor)
-                .HasForeignKey(e => e.doctor_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<hospital>()
-                .Property(e => e.name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<hospital>()
-                .Property(e => e.introduction)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<hospital>()
-                .Property(e => e.address)
-                .IsUnicode(false);
-
             modelBuilder.Entity<hospital>()
                 .Property(e => e.tel)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<hospital>()
-                .Property(e => e.type)
                 .IsUnicode(false);
 
             modelBuilder.Entity<hospital>()
