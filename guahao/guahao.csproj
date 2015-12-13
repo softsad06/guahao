@@ -243,6 +243,7 @@
     <Content Include="Views\Administrators\Login.cshtml" />
     <Content Include="Views\Administrators\UserList.cshtml" />
     <Content Include="Views\Appointments\Pay.cshtml" />
+    <Content Include="Views\Appointments\Print1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,6 +39,8 @@ namespace guahao.Controllers
         public int IdGet()
         {
             int i = db.appointment.Count() + 1;
+            if (i != 1)
+                i = db.appointment.Max(o => o.id) + 1;
             return i;
         }
 
@@ -64,8 +66,8 @@ namespace guahao.Controllers
             ViewBag.doctor_name = doctor.name;
             ViewData["id"] = IdGet() ;
             ViewBag.time = DateTime.Now;
-            department depart = db.department.Find(doctor.id);
-            hospital hospital = db.hospital.Find(depart.hospital_id);
+            var depart = db.department.FirstOrDefault(d=>d.id==doctor.department_id);
+            var hospital = db.hospital.Find(depart.hospital_id);
             ViewBag.hospital_id = hospital.id;
             ViewBag.hospital_name = hospital.name;
             ViewBag.status = 0;
@@ -121,13 +123,44 @@ namespace guahao.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Pay()
+        public ActionResult Pay(int? aid)
         {
             Random r = new Random();
             int key1 = r.Next(0, 999999999);
             int key2 = r.Next(0, 999999999);
             ViewBag.payNumber = key1.ToString() + key2.ToString();
             ViewBag.price = 888;
+            ViewBag.id = aid;
+
+            string uname = Session["user"].ToString();
+            var userinfo = db.user.FirstOrDefault(o => o.name == uname);
+            var app = db.appointment.Find(aid);
+            doctor doc = db.doctor.Find(app.doctor_id);
+            department dep = db.department.Find(doc.department_id);
+            hospital hos = db.hospital.Find(dep.hospital_id);
+
+            ViewBag.user_name = userinfo.real_name;
+            ViewBag.doctor_name = doc.name;
+            ViewBag.hospital_name = hos.name;
+            ViewBag.time = app.time;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Pay2(int id)
+        {
+            string uname = Session["user"].ToString();
+            var appoint = db.appointment.Where(a=>a.id==id).Include(a => a.doctor).Include(a => a.hospital).Include(a => a.user).Where(a => a.user.name == uname);
+            foreach (appointment app in appoint)
+            {
+                app.status = 1;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Print1()
+        {
             return View();
         }
 
