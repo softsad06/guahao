@@ -37,6 +37,20 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("审核注册信息", "UserList/"+Model.id, "Administrators") 
+
+
+    @if (Model.permission == 0)
+    {
+        @Html.ActionLink("审核注册信息", "UserList", "Administrators");<br>
+        @Html.ActionLink("审核是否预约", "BlackList", "Administrators") ;<br>
+        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;<br>
+        @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");<br>
+    }
+    else
+    {
+        @Html.ActionLink("核查预约信息", "Index", "AdminAppointments")<br>
+    }
+
+
     @Html.ActionLink("返回登录", "Login")
 </p>

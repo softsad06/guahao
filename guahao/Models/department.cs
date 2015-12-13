@@ -18,7 +18,7 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string name { get; set; }
 
         public int hospital_id { get; set; }

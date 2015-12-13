@@ -170,7 +170,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\administratorsController.cs" />
+    <Compile Include="Controllers\AdminAppointmentsController.cs" />
+    <Compile Include="Controllers\AdministratorsController.cs" />
+    <Compile Include="Controllers\AdminVisitsController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalController.cs" />
@@ -245,6 +247,16 @@
     <Content Include="Views\Appointments\Pay.cshtml" />
     <Content Include="Views\Appointments\Print1.cshtml" />
     <Content Include="Views\Appointments\Print2.cshtml" />
+    <Content Include="Views\AdminVisits\Create.cshtml" />
+    <Content Include="Views\AdminVisits\Delete.cshtml" />
+    <Content Include="Views\AdminVisits\Details.cshtml" />
+    <Content Include="Views\AdminVisits\Edit.cshtml" />
+    <Content Include="Views\AdminVisits\Index.cshtml" />
+    <Content Include="Views\AdminAppointments\Create.cshtml" />
+    <Content Include="Views\AdminAppointments\Delete.cshtml" />
+    <Content Include="Views\AdminAppointments\Details.cshtml" />
+    <Content Include="Views\AdminAppointments\Edit.cshtml" />
+    <Content Include="Views\AdminAppointments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
