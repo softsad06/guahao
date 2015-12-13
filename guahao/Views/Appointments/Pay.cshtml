@@ -1,4 +1,5 @@
-﻿
+﻿@model guahao.Models.appointment
+
 @{
     ViewBag.Title = "Pay";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,29 +7,64 @@
 
 <h2>Pay</h2>
 
-<div class="container">
-    <div class="show col-md-10">
+@using (Html.BeginForm("Pay2","Appointments"))
+{
+    @Html.AntiForgeryToken()
+    <h3> 订单信息</h3>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("医院名称", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.hospital_name
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("预约人", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.user_name
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("医生姓名", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.doctor_name
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("预约时间", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.time, new { @Value = @ViewBag.time, @readOnly = "readOnly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("价格", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.price, new { @Value = @ViewBag.price, @readOnly = "readOnly" })
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.id, new { @Value = @ViewBag.id, @readonly = "readonly" })
         <div class="form-group">
             @Html.Label("支付单号", htmlAttributes: new { @class = "control-label col-md-2" })
-            @ViewBag.payNumber
+            <div class="col-md-10">
+                @ViewBag.payNumber
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("支付密码", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Password("password2", null, new { @class = "form-control" })
+            </div>
         </div>
         <div class="form-group">
-            @Html.Label("支付金额", htmlAttributes: new { @class = "control-label col-md-2" })
-            @ViewBag.price
+            <div class="col-md-10 col-md-offset-2">
+                <button type="submit" class="btn btn-default">确认支付 </button>
+            </div>
         </div>
-        <div class="form-group">
-            <button type="button"  class="btn btn-default" >确认支付 </button>
-            <button type="button"  class="btn btn-default" >取消支付 </button>
-       </div>
 
+    </div>
 
-
-
-
-
-
-
-
-
-        </div>
-</div>
+}
+ 

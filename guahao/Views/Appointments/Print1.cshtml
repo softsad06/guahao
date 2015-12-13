@@ -1,0 +1,80 @@
+﻿@model guahao.Models.appointment
+
+@{
+    ViewBag.Title = "Print1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Print1</h2>
+
+<div>
+    <h4>appointment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.doctor.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.doctor.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hospital.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hospital.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dd>
+            <button type="button" id="bb"> 确认打印</button>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+
+</p>
+
+<script>
+
+    $(function () {
+        $("#bb").click(function () {
+            window.print();
+        })
+    });
+</script>
