@@ -1,18 +1,17 @@
 ﻿@model guahao.Models.hospital
 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "医院信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detail</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>hospital</h4>
-    <hr />
+  
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.LabelFor(model => model.name,"医院名称")
         </dt>
 
         <dd>
@@ -20,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.introduction)
+            @Html.LabelFor(model => model.introduction,"医院介绍")
         </dt>
 
         <dd>
@@ -28,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.rank)
+            @Html.LabelFor(model => model.rank,"医院等级")
         </dt>
 
         <dd>
@@ -36,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.address)
+            @Html.LabelFor(model => model.address,"医院地址")
         </dt>
 
         <dd>
@@ -44,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tel)
+            @Html.LabelFor(model => model.tel,"医院电话")
         </dt>
 
         <dd>
@@ -52,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.type)
+            @Html.LabelFor(model => model.type,"医院类型")
         </dt>
 
         <dd>
@@ -60,7 +59,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.city)
+            @Html.LabelFor(model => model.city,"所在城市")
         </dt>
 
         <dd>
@@ -68,7 +67,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.url)
+            @Html.LabelFor(model => model.url,"医院网址")
         </dt>
 
         <dd>

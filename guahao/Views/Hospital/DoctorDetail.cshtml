@@ -1,18 +1,16 @@
 ﻿@model guahao.Models.doctor
 
 @{
-    ViewBag.Title = "DoctorDetail";
+    ViewBag.Title = "医生信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DoctorDetail</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>doctor</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.department.name)
+            @Html.LabelFor(model => model.department.name,"所在科室")
         </dt>
 
         <dd>
@@ -20,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.LabelFor(model => model.name,"医生姓名")
         </dt>
 
         <dd>
@@ -28,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.introduction)
+            @Html.LabelFor(model => model.introduction,"医生介绍")
         </dt>
 
         <dd>
@@ -36,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.rank)
+            @Html.LabelFor(model => model.rank,"医生等级")
         </dt>
 
         <dd>
@@ -44,7 +42,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.specialty)
+            @Html.LabelFor(model => model.specialty,"医生专长")
         </dt>
 
         <dd>
@@ -52,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.is_good)
+            @Html.LabelFor(model => model.is_good,"是否评优")
         </dt>
 
         <dd>

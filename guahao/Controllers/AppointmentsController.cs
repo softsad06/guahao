@@ -54,7 +54,7 @@ namespace guahao.Controllers
 
             string uname = Session["user"].ToString();
             user user = db.user.FirstOrDefault(a => a.name == uname);
-            if (user==null)
+            if (user==null||user.is_activated==null)
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -65,13 +65,14 @@ namespace guahao.Controllers
             doctor doctor = db.doctor.Find(did);
             ViewBag.doctor_name = doctor.name;
             ViewData["id"] = IdGet() ;
-            ViewBag.time = DateTime.Now;
+            DateTime dt= Convert.ToDateTime(Session["appointment_date"].ToString());
+            ViewBag.time = dt;
             var depart = db.department.FirstOrDefault(d=>d.id==doctor.department_id);
             var hospital = db.hospital.Find(depart.hospital_id);
             ViewBag.hospital_id = hospital.id;
             ViewBag.hospital_name = hospital.name;
             ViewBag.status = 0;
-            ViewBag.price = 888;
+            ViewBag.price = db.visit.FirstOrDefault(o => o.date == dt && o.doctor_id == did).price;
             return View();
         }
 
@@ -117,8 +118,10 @@ namespace guahao.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            appointment appointment = db.appointment.Find(id);
-            db.appointment.Remove(appointment);
+            appointment app = db.appointment.Find(id);
+            var v = db.visit.FirstOrDefault(o => o.date == app.time && o.doctor_id == app.doctor_id);
+            v.number += 1;
+            db.appointment.Remove(app);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -129,7 +132,6 @@ namespace guahao.Controllers
             int key1 = r.Next(0, 999999999);
             int key2 = r.Next(0, 999999999);
             ViewBag.payNumber = key1.ToString() + key2.ToString();
-            ViewBag.price = 888;
             ViewBag.id = aid;
 
             string uname = Session["user"].ToString();
@@ -143,6 +145,7 @@ namespace guahao.Controllers
             ViewBag.doctor_name = doc.name;
             ViewBag.hospital_name = hos.name;
             ViewBag.time = app.time;
+            ViewBag.price = app.price;
             return View();
         }
 
@@ -159,11 +162,16 @@ namespace guahao.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Print1()
+        public ActionResult Print1(int ?id)
         {
-            return View();
+            var app = db.appointment.Find(id);
+            return View(app);
         }
 
-
+        public ActionResult Print2(int? id)
+        {
+            var app = db.appointment.Find(id);
+            return View(app);
+        }
     }
 }

@@ -1,16 +1,16 @@
 ﻿@model guahao.Models.user
 
 @{
-    ViewBag.Title = "UserInfo";
+    ViewBag.Title = "用户信息";
 }
 
-<h2>UserInfo</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
 
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.LabelFor(model => model.name,"用户名")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
 
        
         <dt>
-            @Html.DisplayNameFor(model => model.real_name)
+            @Html.LabelFor(model => model.real_name,"真实姓名")
         </dt>
 
         <dd>
@@ -36,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.social_id)
+            @Html.LabelFor(model => model.social_id,"身份证号")
         </dt>
 
         <dd>
@@ -52,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tel)
+            @Html.LabelFor(model => model.tel,"电话号码")
         </dt>
 
         <dd>
@@ -68,7 +68,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.email)
+            @Html.LabelFor(model => model.email,"电子邮件")
         </dt>
 
         <dd>

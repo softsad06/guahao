@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<guahao.Models.department>
 
 @{
-    ViewBag.Title = "DepartmentList";
+    ViewBag.Title = "科室列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DepartmentList</h2>
+<h2>@ViewBag.Title</h2>
 <div class="show">
     @foreach (var department in Model)
     {

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<guahao.Models.doctor>
 
 @{
-    ViewBag.Title = "DoctorList";
+    ViewBag.Title = "医生列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DoctorList</h2>
+<h2>@ViewBag.Title</h2>
 
 <form class="form-horizontal" method="post" action="/Hospital/DoctorList">
     <div class="form-group">

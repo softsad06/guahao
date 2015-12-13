@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <table class="table">
     <tr>
@@ -56,14 +56,14 @@
             @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
-            @Html.ActionLink("打印预约单", "Print1","Appointments", new { aid = @item.id })|
+            @Html.ActionLink("打印预约单", "Print1/"+ @item.id, "Appointments")|
             @if (Model.FirstOrDefault().status == 0)
             {
                 @Html.ActionLink("支付费用", "Pay", "Appointments", new { aid = @item.id }, null)
             }
             else
             {
-                @Html.ActionLink("打印挂号单", "Print2", "Appointments", new { aid = @item.id })
+                @Html.ActionLink("打印挂号单", "Print2/"+ @item.id, "Appointments")
 
             }
             @Html.ActionLink("明细查看", "Details", new { id=item.id }) |

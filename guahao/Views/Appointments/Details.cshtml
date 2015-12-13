@@ -1,18 +1,17 @@
 ﻿@model guahao.Models.appointment
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "预约信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>appointment</h4>
-    <hr />
+
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.doctor.name)
+            @Html.LabelFor(model => model.doctor.name,"预约医生")
         </dt>
 
         <dd>
@@ -20,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.hospital.name)
+            @Html.LabelFor(model => model.hospital.name,"预约医院")
         </dt>
 
         <dd>
@@ -28,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.user.name)
+            @Html.LabelFor(model => model.user.name,"预约用户")
         </dt>
 
         <dd>
@@ -36,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.time)
+            @Html.LabelFor(model => model.time,"预约时间")
         </dt>
 
         <dd>
@@ -44,24 +43,31 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
+            @Html.LabelFor(model => model.price,"应缴费用")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.price)
         </dd>
 
+        <dt>
+            @Html.LabelFor(model => model.status, "缴费状态")
+        </dt>
+
+        <dd>
+            @if (Model.status == 0)
+            {
+                @Html.Label("未缴费")
+            }
+            else
+            {
+                @Html.Label("已缴费")
+            }
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+ 
+    @Html.ActionLink("回到主页", "Index")
 </p>
