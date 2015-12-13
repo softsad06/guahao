@@ -87,7 +87,7 @@ namespace guahao.Controllers
                         join d in db.doctor on a.doctor_id equals d.id
                         where d.department_id==doctor.department_id
                         select a;
-            if (apppp!=null)
+            if (apppp.Count()>=1)
                 return RedirectToAction("Index");
             var depart = db.department.FirstOrDefault(d=>d.id==doctor.department_id);
             var hospital = db.hospital.Find(depart.hospital_id);
