@@ -19,21 +19,21 @@ namespace guahao.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
-        [StringLength(20)]
+        [StringLength(100)]
         public string name { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string introduction { get; set; }
 
         public int? rank { get; set; }
 
-        [StringLength(50)]
+        [Column(TypeName = "ntext")]
         public string address { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string tel { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string type { get; set; }
 
         [StringLength(10)]

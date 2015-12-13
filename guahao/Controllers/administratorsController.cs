@@ -10,7 +10,7 @@ using guahao.Models;
 
 namespace guahao.Controllers
 {
-    public class administratorsController : Controller
+    public class AdministratorsController : Controller
     {
         private DB db = new DB();
 
@@ -51,26 +51,22 @@ namespace guahao.Controllers
 
         public ActionResult Details()
         {
+            if (Session["admin"]==null)
+                return RedirectToAction("Login","Administrators");
             string adminname = Session["admin"].ToString();
             var admin = db.administrator.FirstOrDefault(o => o.name == adminname);
             if (admin == null)
-            {
                 return HttpNotFound();
-            }
             return View(admin);
         }
 
-        public ActionResult UserList(int? id)
+        public ActionResult UserList()
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            administrator admin = db.administrator.Find(id);
-            if (admin == null)
-                return HttpNotFound();
             var userlist = db.user.Where(o => o.is_activated == null);
             return View(userlist.ToList());
         }
 
+        // activate user if exits
         public ActionResult ActivateUser(int? id)
         {
             if (id == null)
@@ -81,8 +77,29 @@ namespace guahao.Controllers
 
             string admin= Session["admin"].ToString();
             int adminid = db.administrator.FirstOrDefault(o => o.name == admin).id;
-            return RedirectToAction("UserList/" + adminid.ToString(), "Administrators");
+            return RedirectToAction("UserList", "Administrators");
         }
 
+        //judge if a user's apointment have over time. if so, decrease its credict
+        public ActionResult BlackList()
+        {
+            DateTime today = DateTime.Now;
+            foreach (user u in db.user)
+            {
+                var appo = db.appointment.Where(a => a.user_id == u.id);
+                foreach (appointment app in appo)
+                {
+                    DateTime appday = (DateTime)app.time;
+                    TimeSpan t = appday - today;
+                    int days = t.Days;
+                    if (days <= 0)
+                        u.credict_rank -= 1;
+
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("UserList", "Administrators");
+        }
+        
     }
 }
