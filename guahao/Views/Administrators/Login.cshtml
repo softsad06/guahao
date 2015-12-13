@@ -1,11 +1,11 @@
 ﻿@model guahao.Models.administrator
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "管理员登录";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Admin Login</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
@@ -13,13 +13,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>administrator</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.name,"管理员名", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })

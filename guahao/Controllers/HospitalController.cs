@@ -102,7 +102,7 @@ namespace guahao.Controllers
 
         public ActionResult DoctorDetail(int? id)
         {
-            Session["user"] = "lykeven";
+            //Session["user"] = "lykeven";
             var docDetail = db.doctor.Find(id);
             if (docDetail == null)
             {

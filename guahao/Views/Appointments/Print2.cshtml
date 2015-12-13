@@ -1,11 +1,11 @@
 ﻿@model guahao.Models.appointment
 
 @{
-    ViewBag.Title = "打印预约单";
+    ViewBag.Title = "打印挂号单";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>预约单</h2>
+<h2>挂号单</h2>
 
 <div>
     <dl class="dl-horizontal">
@@ -54,17 +54,8 @@
         </dt>
 
         <dd>
-            @if (Model.status ==null)
-            {
-                @Html.Label("未缴费")
-            }
-            else
-            {
                 @Html.Label("已缴费")
-            }
         </dd>
-
-
 
         <dd>
             <button type="button" id="bb"> 确认打印</button>
