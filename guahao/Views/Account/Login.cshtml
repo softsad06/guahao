@@ -1,55 +1,37 @@
-﻿@model guahao.Models.user
-@{
-    ViewBag.Title = "登陆";
-}
-
-<h2>@ViewBag.Title</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal" >
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.name,"用户名", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
+﻿<div class="box">
+    <div class="login-box">
+        <div class="login-title text-center">
+            <h1><small>登录</small></h1>
         </div>
+        <div class="login-content ">
+            <div class="form">
+                <form action="/Account/Login" method="post">
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="请输入用户名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-4 col-xs-offset-4 ">
+                            <button type="submit" class="btn btn-sm btn-success"></span>登录</button>
+                            
+                        </div>
+                        <button type="reset" class="btn btn-sm btn-warning">重置</button>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.password, "密码", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </form>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary btn-lg" id="bb">登陆</button>
-                <button type="reset" class="btn btn-primary btn-lg">重置</button>
-            </div>
-        </div>
-        <div id="pp" class="col-md-offset-2 col-md-10">
         </div>
     </div>
-}
-
-@Html.ActionLink("管理员登陆","Login","Administrators")
-
-<script>
-function OnButtonClick()
-{
-	$("#pp").text("登陆中...");
-}
-$(function()
-{
-	$("#bb").click(OnButtonClick);
-});
-</script>
+</div>

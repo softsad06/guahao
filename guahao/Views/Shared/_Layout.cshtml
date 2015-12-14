@@ -10,10 +10,114 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+	<style type="text/css">
 
+        html{
+            height: 100%;
+
+        }
+		body{
+			 height: 100%;
+			 background: url('../img/hospital.jpg')  center center fixed; 
+			 -webkit-background-size: cover;
+			 -moz-background-size: cover;
+			 -o-background-size: cover;
+			 background-size: cover;
+			 
+		}
+        .loginbox {
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
+            background-image:linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+			
+            margin: 0 auto;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .login-box {
+            width: 100%;
+            max-width:500px;
+            height: 400px;
+            position: absolute;
+            top: 100px;
+			left:650px;
+         }
+        .form {
+            width: 100%;
+            max-width:500px;
+            height: 275px;
+            margin: 25px auto 0px auto;
+            padding-top: 25px;
+        }
+        .login-content {
+            height: 300px;
+            width: 100%;
+            max-width:500px;
+            background-color: rgba(255, 250, 2550, .6);
+            float: left;
+        }
+		.sign-content{
+			height: 350px;
+            width: 100%;
+            max-width:500px;
+            background-color: rgba(255, 250, 2550, .6);
+            float: left;
+		}
+        .input-group {
+            margin: 0px 0px 30px 60px !important;
+        }
+        .form-control,
+        .input-group {
+            height: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 0px !important;
+        }
+        .login-title {
+            padding: 20px 10px;
+            background-color: rgba(0, 0, 0, .6);
+        }
+        .login-title h1 {
+            margin-top: 10px !important;
+        }
+        .login-title small {
+            color: #fff;
+        }
+        .link p {
+            line-height: 20px;
+            margin-top: 30px;
+        }
+        .btn-sm {
+            padding: 8px 24px !important;
+            font-size: 16px !important;
+			margin: 0px 0px 30px 90px !important;
+        }
+		.searchinput{
+			width:700px;
+		    height:50px;
+			margin-left:400px;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			padding: 0.25rem;
+			text-align: left;
+			border: 1px solid #ccc;
+		}
+		tbody tr:nth-child(odd) {
+			background: #eee;
+		}
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-custom navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,12 +126,12 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="font-size: 30px">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
                     <li>@Html.ActionLink("关于", "About", "Home")</li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right " style"color: rgb(212, 106, 64)">
                     @if (Session["user"] != null)
                     {
                         <li>@Html.ActionLink("你好," + @Session["user"], "UserInfo", "Account")</li>
@@ -38,7 +142,7 @@
                         <li>@Html.ActionLink("管理员你好," + @Session["admin"], "Details", "Administrators")</li>
                         <li>@Html.ActionLink("注销", "Logout", "Administrators")</li>
                     } 
-                    <li>@Html.ActionLink("登陆", "Login", "Account")</li>
+                    <li>@Html.ActionLink("登录", "Login", "Account")</li>
                     <li>@Html.ActionLink("注册", "Signup", "Account")</li>
 
                 </ul>
@@ -50,10 +154,5 @@
         @RenderBody()
     </div>
 
-    <div class="modal-footer">
-        <footer>
-            <p>&copy; @DateTime.Now.Year - hospital appointment registration system</p>
-        </footer>
-    </div>
 </body>
 </html>
