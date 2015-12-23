@@ -45,7 +45,7 @@ namespace guahao.Controllers
         }
 
         // GET: Appointments/Create
-        public ActionResult Create(int? did)
+        public ActionResult Create(int? did,string date)
         {
             if (did == null)
             {
@@ -74,9 +74,15 @@ namespace guahao.Controllers
             doctor doctor = db.doctor.Find(did);
             ViewBag.doctor_name = doctor.name;
             ViewData["id"] = IdGet() ;
-            DateTime dt= Convert.ToDateTime(Session["appointment_date"].ToString());
+            if (date == null || date.Length <= 0)
+            {
+                if (Session["appointment_date"] != null)
+                {
+                    date = Session["appointment_date"].ToString();
+                }
+            }
+            DateTime dt = Convert.ToDateTime(date);
             ViewBag.time = dt;
-
             //the case that user had ordered more than 3 doctor at the same time
             int  app = db.appointment.Count(o => o.user_id == user.id&&o.time==dt);
             if (app>3)
@@ -206,7 +212,10 @@ namespace guahao.Controllers
                 app.status = 1;
             }
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            ViewBag.NextUrl = "~/Appointments/Index";
+            ViewBag.Message = "支付成功！";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
         public ActionResult Print1(int ?id)

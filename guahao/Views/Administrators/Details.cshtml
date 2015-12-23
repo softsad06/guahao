@@ -19,14 +19,17 @@
                     @Html.DisplayFor(model => model.name)
                 </div>
             </div>
-            <div class="row col-md-12">
-                <div class="col-md-3 leftdiv">
-                    @Html.Label("所属医院")
+            @if (Model.permission.ToString() != "0")
+            {
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("所属医院")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @ViewBag.hospital
+                    </div>
                 </div>
-                <div class="col-md-8 rightdiv">
-                    @ViewBag.hospital
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -35,12 +38,13 @@
     {
         @Html.ActionLink("审核注册信息", "UserList", "Administrators");
         @Html.ActionLink("审核是否预约", "BlackList", "Administrators") ;
-        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;
         @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");
     }
     else
     {
+        //医院
+        @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");
         @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;
     }
-    @Html.ActionLink("退出登录", "Login")
+    @Html.ActionLink("退出登录", "Logout")
 </div>

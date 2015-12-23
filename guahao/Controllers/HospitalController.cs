@@ -5,7 +5,6 @@ using System.Web;
 using System.Data;
 using System.Web.Mvc;
 using guahao.Models;
-using System.Web.Script.Serialization;
 using System.Data.Entity;
 
 namespace guahao.Controllers
@@ -181,32 +180,24 @@ namespace guahao.Controllers
             try{
                  datetime=DateTime.Parse(date);
             }catch(Exception){}
-            var res = db.visit.Where(v => v.doctor_id == did && v.date.Date == datetime.Date);
-            return View();
-            //return Json(SerializeDataTable(res));
-        }
 
-        /// <summary>DataTable序列化
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        private List<Dictionary<string, object>> SerializeDataTable(DataTable dt)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-            foreach (DataRow dr in dt.Rows)//每一行信息，新建一个Dictionary<string,object>,将该行的每列信息加入到字典
-            {
-                Dictionary<string, object> result = new Dictionary<string, object>();
-                foreach (DataColumn dc in dt.Columns)
+            try {
+                var sb=datetime.Date;
+                var res = db.visit.Where(v => v.doctor_id == did && v.date == datetime).ToList();
+                string result = "";
+                foreach (var d in res)
                 {
-                    result.Add(dc.ColumnName, dr[dc].ToString());
+                    result += d.date.ToString() + ",";
+                    result += d.number.ToString() + ",";
+                    result += d.price.ToString() + ",";
+                    result += d.id.ToString() + ",";
                 }
-                list.Add(result);
+                if (result.Length >= 1) result = result.Substring(0, result.Length - 1);
+                return Content(result);
             }
-            return list;
-            //return serializer.Serialize(list);//调用Serializer方法 
-        }
+            catch (Exception) { return View(); }
 
+        }
 
     }
 }

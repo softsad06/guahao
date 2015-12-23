@@ -63,7 +63,7 @@
         </div>
     </div>
 </div>
-<div style="display:none">
+
     <div class="row col-md-11">
         <label for="date"> 请选择要预约的日期</label>
         <div class="keyword">
@@ -78,13 +78,14 @@
         <thead>
             <tr>
                 <th>时间</th>
-                <th>费用</th>
+                <th>剩余人数</th>
+                <th>价格</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
-</div>
+
 <div class="row col-md-12">
     <div class="col-md-2 leftdiv">
         @Html.LabelFor(model => model.introduction, "医生介绍")
@@ -92,10 +93,6 @@
     <div class="col-md-9 rightdiv">
         <label>@Html.DisplayFor(model => model.introduction)</label>
     </div>
-</div>
-<div class="row col-md-12 btndiv">
-    <a href="javascript:history.go(-1);">返回</a>
-    @Html.ActionLink("预约", "Create", "Appointments", new { did = @Model.id }, null)
 </div>
 <script>
     function searchByDate()
@@ -109,8 +106,8 @@
                 'did': did,
                 'date':date
             },
-            success: function (data) {
-                showDates(data);
+            success: function (datastr) {
+                showDates(datastr);
             },
             error: function () {
                 alert("查询出错");
@@ -119,18 +116,23 @@
     }
 
     //刷新table显示的日期
-    function showDates(data)
+    function showDates(datastr)
     {
+        var datetime=$("#date").val();
+        var data=datastr.split(",");
         var table = $("#dateSelectTable tbody");
         var content = "";
-        for (i = 0; i < data.length; i++)
+        console.log(datastr);
+        for (i = 0; i < data.length; i+=4)
         {
             content += "<tr>";
-            content += "<td>" + data[i].date + "</td>";
-            content += "<td>" + data[i].price + "</td>";
-            content += "<td><a href='@Url.Content("~/Appointments/Create/")"+ + data[i].id + "' >预约</a></td>";
+            content += "<td>" + data[i] + "</td>";
+            content += "<td>" + data[i + 1] + "</td>";
+            content += "<td>" + data[i + 2] + "</td>";
+            content += "<td><a href='@Url.Content("~/Appointments/Create?did=")" + data[i + 3] + "&date=" + datetime + "' >预约</a></td>";
             content += "</tr>";
         }
+        if (datastr.length <= 5) content = "<tr><td colspan='4'>无结果</td></tr>";
         table.html(content);
     }
 

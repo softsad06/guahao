@@ -13,61 +13,75 @@
 @using (Html.BeginForm("Pay2","Appointments"))
 {
     @Html.AntiForgeryToken()
-    <h3> 订单信息</h3>
-    <div class="form-horizontal">
-        <div class="form-group">
-            @Html.Label("医院名称", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.hospital_name
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.Label("预约人", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.user_name
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("医生姓名", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.doctor_name
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("预约时间", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.time, new { @Value = @ViewBag.time, @readOnly = "readOnly" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.Label("价格", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.price, new { @Value = @ViewBag.price, @readOnly = "readOnly" })
+    <div>
+        <label style="margin:20px;font-size:14px;">订单信息</label>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("医院名称")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @ViewBag.hospital_name
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("预约人")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @ViewBag.user_name
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("医生姓名")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @ViewBag.doctor_name
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("预约时间")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @Html.TextBoxFor(model => model.time, new { @Value = @ViewBag.time, @readOnly = "readOnly" })
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("价格")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @Html.TextBoxFor(model => model.price, new { @Value = @ViewBag.price, @readOnly = "readOnly" })
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.id, new { @Value = @ViewBag.id, @readonly = "readonly" })
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("支付单号")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @ViewBag.payNumber
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-3 leftdiv">
+                        @Html.Label("支付密码")
+                    </div>
+                    <div class="col-md-8 rightdiv">
+                        @Html.Password("password2", null, new { @class = "form-control" })
+                    </div>
+                </div>
             </div>
         </div>
-        @Html.HiddenFor(model => model.id, new { @Value = @ViewBag.id, @readonly = "readonly" })
-        <div class="form-group">
-            @Html.Label("支付单号", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @ViewBag.payNumber
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("支付密码", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Password("password2", null, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10 col-md-offset-2">
-                <button type="submit" class="btn btn-default">确认支付 </button>
-            </div>
-        </div>
-
     </div>
-
+    
+    <div class="btndiv">
+        <button type="submit">确认支付 </button>
+    </div>
 }
  

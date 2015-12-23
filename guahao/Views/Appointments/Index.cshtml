@@ -67,7 +67,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("打印预约单", "Print1/" + @item.id, "Appointments")|
-                        @if (Model.FirstOrDefault().status == 0)
+                        @if (@item.status == 0)
                         {
                             @Html.ActionLink("支付费用", "Pay", "Appointments", new { aid = @item.id }, null)
                         }
