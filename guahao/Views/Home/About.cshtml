@@ -1,18 +1,51 @@
 ﻿@{
     ViewBag.Title = "关于我们";
+    ViewBag.Location = "首页 > 关于我们";
 }
 
 
-<h3>@ViewBag.Title</h3>
-
+<h1>@ViewBag.Title</h1>
 <address>
-    softsad06<br />
-    BUAA<br />
-    <abbr title="Phone">P:</abbr>
-    15201057652
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-9">
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.Label("团队名称：")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.Label("softsad06")
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.Label("学校：")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.Label("BUAA")
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.Label("电话：")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    <abbr title="Phone"></abbr><label>15201057652</label>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.Label("联系方式：")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    <a href="http://www.github.com/softsad06">We are there!</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </address>
+<div class="btndiv">
+    <a href="javascript:history.go(-1);">返回</a>
+</div>
 
-<address>
-    <strong>Contact:</strong>   <a href="http://www.github.com/softsad06">We are there!</a><br />
-
-</address>

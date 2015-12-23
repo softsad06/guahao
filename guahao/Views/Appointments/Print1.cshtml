@@ -2,84 +2,81 @@
 
 @{
     ViewBag.Title = "打印预约单";
+    ViewBag.Location = "首页 > 打印预约单";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>预约单</h2>
+<h1>@ViewBag.Title</h1>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("医生")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.doctor.name)
-        </dd>
-
-        <dt>
-            @Html.Label("医院")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hospital.name)
-        </dd>
-
-        <dt>
-            @Html.Label("预约人")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.real_name)
-        </dd>
-
-        <dt>
-            @Html.Label("预约时间")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.time)
-        </dd>
-
-        <dt>
-            @Html.Label("应缴费用")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.Label("状态")
-        </dt>
-
-        <dd>
-            @if (Model.status ==null)
-            {
-                @Html.Label("未缴费")
-            }
-            else
-            {
-                @Html.Label("已缴费")
-            }
-        </dd>
-        <dd>
-            <button type="button" id="bb"> 确认打印</button>
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-9">
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("医生")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.doctor.name)
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("医院")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.hospital.name)
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("预约人")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.user.real_name)
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("预约时间")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.time)
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("应缴费用")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.price)
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("状态")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @if (Model.status == 0)
+                {
+                    @Html.Label("未缴费")
+                }
+                else
+                {
+                    @Html.Label("已缴费")
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("回到主页", "Index")
-
-</p>
+<div class="btndiv">
+    <a href="javascript:history.go(-1);">返回</a>
+    <a href="javascript:StartPrint()">打印</a>
+</div>
 
 <script>
-
-    $(function () {
-        $("#bb").click(function () {
-            alert("开始打印");
-            window.print();
-        })
-    });
+    function StartPrint() {
+        alert("开始打印");
+        window.print();
+    }
 </script>

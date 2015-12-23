@@ -23,9 +23,28 @@ namespace guahao
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/slides").Include(
+                      "~/Scripts/slides.min.jquery.js",
+                      "~/Scripts/slider.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquerypaging").Include(
+          "~/Scripts/jquery.paging.js"));
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"
+                      ,"~/Content/site.css"
+                      , "~/Content/portal.base.min.css"
+                      , "~/Content/portal.basic.min.css"
+                      , "~/Content/portal.hdd.min.css"
+                      , "~/Content/portal.content.min.css"
+                      , "~/Content/style.min.css"
+                      , "~/Content/animate.min.css"
+                      //,"~/Content/slider.css"
+                      ,"~/Content/stylesheet.css"
+                      , "~/Content/jquery.paging.css"
+                      //,"~/Content/datepicker.css"
+                      ));
         }
     }
 }

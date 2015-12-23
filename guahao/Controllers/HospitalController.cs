@@ -18,20 +18,43 @@ namespace guahao.Controllers
             return View();
         }
 
+        public ActionResult SearchHospitalByName(string hname)
+        {
+            int number = 20;
+            int page = 1;
+            if (hname.Length <= 0)
+            {
+                var res = db.hospital.OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
+                Session.Remove("city");
+                return View("~/Views/Hospital/HospitalList.cshtml", res);
+            }
+            else
+            {
+                var res = db.hospital.Where(o => o.name.IndexOf(hname) != -1).OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
+                Session["city"] = "\"" + hname + "\"";
+                return View("~/Views/Hospital/HospitalList.cshtml", res);
+            }
+        }
+
         public ActionResult HospitalList(string cityname)
         {
+            int number = 20;
+            int page = 1;
             if (ModelState.IsValid)
             {
                 var city = db.city.FirstOrDefault(o => o.name == cityname);
                 if (city != null)
                 {
                     string city_abv = db.city.FirstOrDefault(o => o.name == cityname).abr_name;
-                    var hos = db.hospital.Where(o => o.city == city_abv);
-                    return View(hos.ToList());
+                    var hos = db.hospital.Where(o => o.city == city_abv).OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
+                    Session["city"] = cityname;
+                    return View(hos);
                 }
                 else
-                    return View(db.hospital.ToList());
-                    
+                {
+                    Session.Remove("city");
+                    return View(db.hospital.OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList());
+                }
             }
             return View();
         }
@@ -43,17 +66,21 @@ namespace guahao.Controllers
             {
                 return HttpNotFound();
             }
+            Session["hospital"]=hosDetail.name;
             return View(hosDetail);
         }
 
         public ActionResult DepartmentList(int ?id)
-        { 
+        {
+            int number = 20;
+            int page = 1;
             if (ModelState.IsValid)
             {
-                var dep = db.department.Where(o => o.hospital_id==id);
-                return View(dep.ToList());
+                var dep = db.department.Where(o => o.hospital_id == id).OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
+                return View(dep);
+            }else{
+                return View();
             }
-            return View();
         }
 
         public ActionResult DepartmentDetail(int? id)
@@ -63,15 +90,23 @@ namespace guahao.Controllers
             {
                 return HttpNotFound();
             }
-            return View(depDetail);
+            else
+            {
+                Session["department"] = depDetail.name;
+                return View(depDetail);
+            }
         }
 
 
         public ActionResult DoctorList(int ?id, string date)
         {
+            int number = 20;
+            int page = 1;
             if (ModelState.IsValid)
             {
-                if (date != null)
+                if (id == null) Session["department"] = "";
+                else Session["department"] = db.department.Where(d => d.id == id).First().name;
+                if (date != null && date.Length>0)
                 {
                     DateTime dt = Convert.ToDateTime(date);
                     Session["appointment_date"] = date;
@@ -80,11 +115,12 @@ namespace guahao.Controllers
                               join v in db.visit on d.id equals v.doctor_id
                               where v.date == dt && v.number > 0
                               select d;
-                    return View(doc.ToList());
+                    return View(doc.OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList());
                 }
                 else
                 {
-                    var doc = db.doctor.Where(d => d.department_id == id).ToList();
+                    Session["appointment_date"] = "";
+                    var doc = db.doctor.Where(d => d.department_id == id).OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
                     return View(doc);
                 }
 
@@ -97,7 +133,6 @@ namespace guahao.Controllers
         {
              var doc = db.doctor.Where(o => o.department_id == 1);
             return Json(doc);
-
         }
 
         public ActionResult DoctorDetail(int? id)
@@ -108,7 +143,11 @@ namespace guahao.Controllers
             {
                 return HttpNotFound();
             }
-            return View(docDetail);
+            else
+            {
+                Session["dotor"] = docDetail.name;
+                return View(docDetail);
+            }
         }
 
 

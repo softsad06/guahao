@@ -2,16 +2,30 @@
 
 @{
     ViewBag.Title = "科室列表";
+    ViewBag.Location = "首页 > 科室列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@Session["hospital"] - @ViewBag.Title</h1>
 <div class="show">
     @foreach (var department in Model)
     {
-        <div class="col-md-4 jumbotron">
-            @Html.ActionLink(@department.name, "DepartmentDetail/" + @department.id, "Hospital")
-        </div>
+        <div class="g-hospital-items to-margin">
+            <ul class="hos_ul">
+                <li class="g-hospital-item J_hospitalItem">
+                    <div class="hos-total g-clear " style="border: none;">
+                        <div class="info g-left">
+                            <dl>
+                                <dt>
+                                    @Html.ActionLink(@department.name, "DoctorList/" + @department.id, "Hospital")
+                                </dt>
+                            </dl>
+                        </div>
 
+                    </div>
+
+                </li>
+            </ul>
+        </div>
     }
 </div>

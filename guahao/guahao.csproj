@@ -263,6 +263,7 @@
     <Content Include="Views\AdminAppointments\Details.cshtml" />
     <Content Include="Views\AdminAppointments\Edit.cshtml" />
     <Content Include="Views\AdminAppointments\Index.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

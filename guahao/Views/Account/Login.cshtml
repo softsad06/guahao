@@ -1,6 +1,11 @@
-﻿<div class="box">
+﻿@{
+    ViewBag.Title = "用户登录";
+    ViewBag.Location = "首页 > 用户登录";
+}
+<div class="login-background">
+    <div class="box">
     <div class="login-box">
-        <div class="login-title text-center">
+        <div class="login-title text-center" style="height:auto">
             <h1><small>登录</small></h1>
         </div>
         <div class="login-content ">
@@ -24,7 +29,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-4 col-xs-offset-4 ">
-                            <button type="submit" class="btn btn-sm btn-success"></span>登录</button>
+                            <button type="submit" class="btn btn-sm btn-success">登录</button>
                             
                         </div>
                         <button type="reset" class="btn btn-sm btn-warning">重置</button>
@@ -34,4 +39,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

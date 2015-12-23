@@ -2,82 +2,98 @@
 
 @{
     ViewBag.Title = "医院信息";
+    ViewBag.Location = "首页 > 医院列表 > 医院信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
-
+<h1>@Session["hospital"] - @ViewBag.Title</h1>
 <div>
-  
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.name,"医院名称")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.introduction,"医院介绍")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.introduction)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.rank,"医院等级")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.rank)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.address,"医院地址")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.tel,"医院电话")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tel)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.type,"医院类型")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.city,"所在城市")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.city)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.url,"医院网址")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.url)
-        </dd>
-
-    </dl>
+    <div class="col-md-3">
+        @{
+            int idnum = Model.id % 8 + 1;
+            @Html.Raw("<img src='" + Url.Content("~/img/photos/hospital_") + idnum + ".jpg' width='100%' height='100%' />");
+        }
+    </div>
+    <div class="col-md-9">
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.name, "医院名称")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.name)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.rank, "医院等级")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>三级甲等</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.address, "医院地址")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.address)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.tel, "医院电话")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.tel)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.type, "医院类型")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.type)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.city, "所属城市")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>
+                @{
+                    if(Model.city=="bj")
+                    {
+                        @Html.Raw("北京");
+                    }
+                    else if(Model.city=="sh")
+                    {
+                        @Html.Raw("上海");
+                    }
+                    else if(Model.city=="gz")
+                    {
+                        @Html.Raw("广州");
+                    }
+                    else
+                    {
+                         @Html.Raw(Model.city);
+                    }
+                }
+                </label>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
 
-    @Html.ActionLink("回到主页", "Index", "Home")
+<div class="row col-md-12">
+    <div class="col-md-2 leftdiv">
+        @Html.LabelFor(model => model.introduction, "医院介绍")
+    </div>
+    <div class="col-md-9 rightdiv">
+        <label>@Html.DisplayFor(model => model.introduction)</label>
+    </div>
+</div>
+<div class="row col-md-12 btndiv">
+    <a href="javascript:history.go(-1);">返回</a>
     @Html.ActionLink("选择科室", "DepartmentList/"+@Model.id,"Hospital")
-</p>
+</div>

@@ -1,9 +1,22 @@
 ﻿@{
-    ViewBag.Title = "主页";
+    ViewBag.Title = "首页";
+    ViewBag.Location = "首页";
 }
-<br>
-<br>
-<div id="myCarousel" class="carousel slide">
+
+<div class="container" style="">
+    <div class="keyword">
+        <form role="form" action="/Hospital/HospitalList" method="post">
+            <input type="search" name="cityname" autocomplete="off" placeholder="请输入医院所在城市名,如：北京" class="gray" id="search" value="" />
+            <button type="submit" class="btn-doctor" id="querySearch">搜&nbsp;索</button>
+        </form>
+    </div>
+    <!--
+        <input class="searchinput" type="search" id="search" name="cityname" placeholder="请输入城市名,如：北京">
+        <button type="submit" class="btn btn-primary btn-lg" style="height:auto">查询本城市医院</button>
+    </form>-->
+</div>
+<br/>
+<div id="myCarousel" class="carousel slide" style="width:100%">
     <!-- 轮播（Carousel）指标 -->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -27,17 +40,4 @@
        data-slide="prev">&lsaquo;</a>
     <a class="carousel-control right" href="#myCarousel"
        data-slide="next">&rsaquo;</a>
-</div>
-<br><br><br>
-<div class="container">
-
-    <form role="form" action="/Hospital/HospitalList" method="post">
-       
-          
-            <input class="searchinput" type="search" id="search" name="cityname" placeholder="请输入城市名,如：北京">
-            <button type="submit" class="btn btn-primary btn-lg">查询</button>
-        
-
-    </form>
-
 </div>

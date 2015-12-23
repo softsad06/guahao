@@ -2,64 +2,73 @@
 
 @{
     ViewBag.Title = "医生信息";
+    ViewBag.Location = "首页 > 医生列表 > 医生信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@Session["hospital"] - @ViewBag.Title</h1>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.department.name,"所在科室")
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.department.name)
-        </dd>
 
-        <dt>
-            @Html.LabelFor(model => model.name,"医生姓名")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.introduction,"医生介绍")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.introduction)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.rank,"医生等级")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.rank)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.specialty,"医生专长")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.specialty)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.is_good,"是否评优")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.is_good)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-md-3">
+        @{
+            int idnum = Model.id % 8 + 1;
+            @Html.Raw("<img src='" + Url.Content("~/img/photos/doctor_") + idnum + ".jpg' width='100%' height='100%' />");
+        }
+    </div>
+    <div class="col-md-9">
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.name, "医生名称")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.name)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.department.name, "所在科室")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.department.name)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.rank, "医生等级")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>专家</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.specialty, "医生专长")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.specialty)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.is_good, "优秀医生")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>是</label>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("回到主页", "Index", "Home")
-    @Html.ActionLink("预约医生", "Create", "Appointments", new { did = @Model.id },null)
-</p>
+<div class="row col-md-12">
+    <div class="col-md-2 leftdiv">
+        @Html.LabelFor(model => model.introduction, "医生介绍")
+    </div>
+    <div class="col-md-9 rightdiv">
+        <label>@Html.DisplayFor(model => model.introduction)</label>
+    </div>
+</div>
+<div class="row col-md-12 btndiv">
+    <a href="javascript:history.go(-1);">返回</a>
+    @Html.ActionLink("预约医生", "Create", "Appointments", new { did = @Model.id }, null)
+</div>

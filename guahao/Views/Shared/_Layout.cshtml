@@ -4,72 +4,79 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="@Url.Content("~/img/favicon.ico")" type="image/x-icon" />
+    <title>医院预约挂号系统 - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquerypaging")
     @RenderSection("scripts", required: false)
-	<style type="text/css">
-
-        html{
+    <style type="text/css">
+        html {
             height: 100%;
-
         }
-		body{
-			 height: 100%;
-			 background: url('../img/hospital.jpg')  center center fixed; 
-			 -webkit-background-size: cover;
-			 -moz-background-size: cover;
-			 -o-background-size: cover;
-			 background-size: cover;
-			 
-		}
+
+        body {
+            height: 100%;
+            width: 100%;
+            //background: url('../img/hospital.jpg') center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
         .loginbox {
-            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
-            background-image:linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-            background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-            background-image:-moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-            background-image:-webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-            background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
-			
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
+            background-image: linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image: -ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
             margin: 0 auto;
             position: relative;
             width: 100%;
             height: 100%;
         }
+
         .login-box {
+            padding-top: 40px;
+            margin-left: 50%;
             width: 100%;
-            max-width:500px;
+            max-width: 450px;
             height: 400px;
-            position: absolute;
-            top: 100px;
-			left:650px;
-         }
+            //position: absolute;
+        }
+
         .form {
             width: 100%;
-            max-width:500px;
+            max-width: 450px;
             height: 275px;
             margin: 25px auto 0px auto;
             padding-top: 25px;
         }
+
         .login-content {
             height: 300px;
             width: 100%;
-            max-width:500px;
+            max-width: 450px;
             background-color: rgba(255, 250, 2550, .6);
             float: left;
         }
-		.sign-content{
-			height: 350px;
+
+        .sign-content {
+            height: 350px;
             width: 100%;
-            max-width:500px;
+            max-width: 450px;
             background-color: rgba(255, 250, 2550, .6);
             float: left;
-		}
+        }
+
         .input-group {
             margin: 0px 0px 30px 60px !important;
         }
+
         .form-control,
         .input-group {
             height: 40px;
@@ -78,81 +85,142 @@
         .form-group {
             margin-bottom: 0px !important;
         }
+
         .login-title {
             padding: 20px 10px;
-            background-color: rgba(0, 0, 0, .6);
+            background-color: #6699FF;
         }
-        .login-title h1 {
-            margin-top: 10px !important;
-        }
-        .login-title small {
-            color: #fff;
-        }
+
+            .login-title h1 {
+                margin-top: 10px !important;
+            }
+
+            .login-title small {
+                color: #fff;
+            }
+
         .link p {
             line-height: 20px;
             margin-top: 30px;
         }
+
         .btn-sm {
             padding: 8px 24px !important;
             font-size: 16px !important;
-			margin: 0px 0px 30px 90px !important;
+            margin: 0px 0px 30px 90px !important;
         }
-		.searchinput{
-			width:700px;
-		    height:50px;
-			margin-left:400px;
-		}
-		table {
-			border-collapse: collapse;
-			width: 100%;
-		}
-		th, td {
-			padding: 0.25rem;
-			text-align: left;
-			border: 1px solid #ccc;
-		}
-		tbody tr:nth-child(odd) {
-			background: #eee;
-		}
+
+        .searchinput {
+            width: 700px;
+            height: 50px;
+            margin-left: 200px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 0.25rem;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #eee;
+        }
+
+        .btn {
+            height: auto;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-family: "Microsoft YaHei" !important;
+        }
     </style>
+
 </head>
 <body>
-    <div class="navbar navbar-custom navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse" style="font-size: 30px">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right " style"color: rgb(212, 106, 64)">
-                    @if (Session["user"] != null)
-                    {
-                        <li>@Html.ActionLink("你好," + @Session["user"], "UserInfo", "Account")</li>
-                        <li>@Html.ActionLink("注销", "Logout", "Account")</li>
-                    } 
-                    @if (Session["admin"] != null)
-                    {
-                        <li>@Html.ActionLink("管理员你好," + @Session["admin"], "Details", "Administrators")</li>
-                        <li>@Html.ActionLink("注销", "Logout", "Administrators")</li>
-                    } 
-                    <li>@Html.ActionLink("登录", "Login", "Account")</li>
-                    <li>@Html.ActionLink("注册", "Signup", "Account")</li>
+    <div id="header">
+        <div class="header">
+            <!--Logo Part start-->
+            <div class="logo-part">
 
-                </ul>
+                <div class="logo"><a href="@Url.Content("~")"><img src="@Url.Content("~/img/logo.png")" width="100" height="88" alt="" /></a></div>
+                <div class="header-title">
+                    <h1>医院预约挂号系统</h1>
+                </div>
 
             </div>
+            <!--Logo Part End-->
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+    <div class="navbar navbar-custom navbar-fixed-top" style="width:100%" >
+        <div class="container" style="margin:0;padding:0;width:100%;max-width:100%">
+            <!--Menu Part start-->
+            <div class="menu-part">
+
+                <ul>
+                    <li>@Html.ActionLink("首页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("关于", "About", "Home")</li>
+                </ul>
+                <ul class="navbar-right">
+                    @if (Session["user"] != null)
+                    {
+                        <li>@Html.ActionLink("你好, " + @Session["user"], "UserInfo", "Account")</li>
+                        <li>@Html.ActionLink("注销", "Logout", "Account")</li>
+                    }
+                    @if (Session["admin"] != null)
+                    {
+                        <li>@Html.ActionLink("管理员" + @Session["admin"] + " 你好", "Details", "Administrators")</li>
+                        <li>@Html.ActionLink("注销", "Logout", "Administrators")</li>
+                    }
+                    @if (Session["user"] == null && Session["admin"] == null)
+                    {
+                        <li>@Html.ActionLink("登录", "Login", "Account")</li>
+                        <li>@Html.ActionLink("注册", "Signup", "Account")</li>
+                    }
+                </ul>
+
+            </div>
+            <!--Menu Part End-->
+        </div>
     </div>
 
+    <div id="content" style="min-height:85%;padding:0">
+        <div class="content">
+            <div class="left-bg"></div>
+            <div class="content-center" style="min-height:550px">
+                @if (ViewBag.Location != null)
+                {
+                    <div class="breadNav">
+                        <p>
+                            当前位置： @ViewBag.Location
+                        </p>
+                        <hr />
+                    </div>
+                }
+                <div class="container body-content" style="width:100%;margin-top:10px;margin-bottom:10px">
+                    @RenderBody()
+                </div>
+
+            </div>
+            <div class="right-bg"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <!--Footer Bottom start-->
+        <div class="footer-bottom">
+
+            <div class="copy-right-part">
+                <div class="copy-right-text">Copyright 2015 &copy; softsad 06.BUAA All Rights Reserved. <a href="http://www.github.com/softsad06"> We are there!</a></div>
+            </div>
+
+        </div>
+        <!--Footer Bottom End-->
+    </div>
 </body>
+
 </html>

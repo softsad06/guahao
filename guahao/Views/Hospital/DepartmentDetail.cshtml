@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "科室信息";
+    ViewBag.Location = "首页 > 科室列表 > 科室信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@Session["hospital"] - @ViewBag.Title</h1>
 
 <div>
     <dl class="dl-horizontal">

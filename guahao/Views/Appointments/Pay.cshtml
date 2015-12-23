@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "支付";
+    ViewBag.Location = "首页 > 支付";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.Title</h1>
 
 @using (Html.BeginForm("Pay2","Appointments"))
 {

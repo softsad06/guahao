@@ -1,16 +1,60 @@
-﻿
-@model IEnumerable<guahao.Models.hospital> 
+﻿@model IEnumerable<guahao.Models.hospital>
 @{
     ViewBag.Title = "医院列表";
+    ViewBag.Location = "首页 > 医院列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
 
 <div class="show">
+    @if (Session["city"] == null)
+    {
+            Session["city"] = "全部";
+    }
+    <h1>@Session["city"] -  @ViewBag.Title</h1>
+    <div class="keyword">
+        <form role="form" action="@Url.Action("SearchHospitalByName","Hospital")" method="post">
+            <input type="search" name="hname" autocomplete="off" placeholder="请输入医院名,如：协和" class="gray" id="search" value="" />
+            <button type="submit" class="btn-doctor" id="querySearch">搜&nbsp;索</button>
+        </form>
+    </div>
     @foreach (var hospital in Model)
     {
-        <div class="col-md-4 jumbotron">
-            @Html.ActionLink(@hospital.name, "HospitalDetail/" + @hospital.id, "Hospital")
+        <div class="g-hospital-items to-margin">
+            <ul class="hos_ul">
+                <li class="g-hospital-item J_hospitalItem">
+                    <div class="hos-total g-clear " style="border: none;">
+                        <div class="info g-left">
+                            <div class="listimgdiv">
+                                @{
+                                        int idnum = hospital.id % 8 + 1;
+                                       @Html.Raw("<img src='" + Url.Content("~/img/photos/hospital_") + idnum + ".jpg' width='100%' height='100%' />");
+                                }
+                            </div>
+                            <dl>
+                                <dt>
+                                    @Html.ActionLink(@hospital.name, "HospitalDetail/" + @hospital.id, "Hospital")
+                                    <em class="em2">三级甲等</em>
+                                    <img src="@Url.Content("~/img/guahao.png")">
+                                </dt>
+                                <dd>
+                                    <p class="tel">
+                                        <i></i>
+                                        <span title="@hospital.tel">@hospital.tel</span>
+                                    </p>
+                                    <p class="addr">
+                                        <i></i>
+                                        <span title="@hospital.address">@hospital.address</span>
+                                    </p>
+                                    <!-- 推荐内容科室或者医生 -->
+                                </dd>
+                            </dl>
+                        </div>
+
+                    </div>
+
+                </li>
+            </ul>
         </div>
 
     }

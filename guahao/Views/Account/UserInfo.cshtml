@@ -1,117 +1,109 @@
 ﻿@model guahao.Models.user
 
 @{
-    ViewBag.Title = "用户信息";
+    ViewBag.Title = "个人信息";
+    ViewBag.Location = "首页 > 个人信息";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.Title</h1>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-9">
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.name, "用户名")
+            </div>
+            <div class="col-md-8 rightdiv">
+                <label>@Html.DisplayFor(model => model.name)</label>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.real_name, "真实姓名")
+            </div>
+            <div class="col-md-8 rightdiv">
+                    @if (Model.real_name == null)
+                    {
 
-<div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.name,"用户名")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-       
-        <dt>
-            @Html.LabelFor(model => model.real_name,"真实姓名")
-        </dt>
-
-        <dd>
-            @if (Model.real_name == null)
-            {
-              
-                @Html.Label( "未填写")
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.real_name)
-            }
-                
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.social_id,"身份证号")
-        </dt>
-
-        <dd>
-            @if (Model.social_id == null)
-            {
-                @Html.Label("未填写")
-            }
-            else
-            {
-                 @Html.DisplayFor(model => model.social_id)
-             }
-          
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.tel,"电话号码")
-        </dt>
-
-        <dd>
-            @if (Model.tel == null)
-            {
-                 @Html.Label("未填写")
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.tel)
-            }
-            
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.email,"电子邮件")
-        </dt>
-
-        <dd>
-            @if (Model.email == null)
-            {
-                @Html.Label("未填写")
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.email)
-            }
-            
-        </dd>
-
-        <dt>
-           @Html.Label("身份验证")
-        </dt>
-
-        <dd>
-            @if (Model.is_activated == 1)
-            {
-                @Html.Label("已验证")
-            }
-            else
-            {
-                @Html.Label("未验证")
-            }
-               
-           
-        </dd>
-
-        <dt>
-            @Html.Label("信用等级")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.credict_rank)
-        </dd>
-
-    </dl>
+                        @Html.Label("未填写")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.real_name)
+                    }
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.social_id, "身份证号")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @if (Model.social_id == null)
+                {
+                    @Html.Label("未填写")
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.social_id)
+                }
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.tel, "电话号码")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @if (Model.tel == null)
+                {
+                    @Html.Label("未填写")
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.tel)
+                }            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.LabelFor(model => model.email, "电子邮件")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @if (Model.email == null)
+                {
+                    @Html.Label("未填写")
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.email)
+                }            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("身份验证状态")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @if (Model.is_activated == 1)
+                {
+                    @Html.Label("已验证")
+                }
+                else
+                {
+                    @Html.Label("未验证")
+                }
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 leftdiv">
+                @Html.Label("信用等级")
+            </div>
+            <div class="col-md-8 rightdiv">
+                @Html.DisplayFor(model => model.credict_rank)
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("修改信息", "AddUserInfo", "Account") |
-    @Html.ActionLink("查看预约信息", "Index", "Appointments") |
-    @Html.ActionLink("回到主页", "Index","Home")
-</p>
+<div class="row col-md-12 btndiv">
+    @Html.ActionLink("修改信息", "AddUserInfo", "Account")
+    @Html.ActionLink("查看预约信息", "Index", "Appointments")
+    @Html.ActionLink("回到主页", "Index", "Home")
+</div>

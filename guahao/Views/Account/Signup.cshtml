@@ -1,90 +1,89 @@
-﻿<div class="box">
-    <div class="login-box">
-        <div class="login-title text-center">
-            <h1><small>注册</small></h1>
-        </div>
-        <div class="sign-content ">
-            <div class="form">
-                <form action="/Account/Signup" method="post">
-                    <div class="form-group">
-                        <div class="col-xs-12  ">
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="请输入用户名">
+﻿@{
+    ViewBag.Title = "用户注册";
+    ViewBag.Location = "首页 > 用户注册";
+}
+<div class="login-background">
+    <div class="box">
+        <div class="login-box">
+            <div class="login-title text-center">
+                <h1><small>注册</small></h1>
+            </div>
+            <div class="sign-content ">
+                <div class="form">
+                    <form action="/Account/Signup" method="post">
+                        <div class="form-group">
+                            <div class="col-xs-12  ">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="请输入用户名">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12  ">
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
+                        <div class="form-group">
+                            <div class="col-xs-12  ">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12  ">
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" id="password2" name="password2" class="form-control" placeholder="确认密码">
+                        <div class="form-group">
+                            <div class="col-xs-12  ">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" id="password2" name="password2" class="form-control" placeholder="确认密码">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-4 col-xs-offset-4 ">
-                            <button type="submit" class="btn btn-sm btn-info"></span>注册</button>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-4 col-xs-offset-4 ">
+                                <button type="submit" class="btn btn-sm btn-info"></span>注册</button>
+                            </div>
+                            <button type="reset" class="btn btn-sm btn-warning">重置</button>
                         </div>
-                        <button type="reset" class="btn btn-sm btn-warning">重置</button>
-                    </div>
-            <div id="pp" class="col-md-offset-2 col-md-10"></div>
-            </form>
+                        <div id="pp" class="col-md-offset-2 col-md-10"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    function OnUserName()
-    {
-        $.ajax(
-                {
-                    url: "/Account/CheckName",
-                    type: "POST",
-                    data: {
-                        "name":$("#name").val()
-                    },
-                    success:function(data)
+    </div>
+    <script>
+        function OnUserName() {
+            $.ajax(
                     {
-                        $("#pp").text(data);
-                    },
-                    error:function()
-                    {
-                        alert("请求失败");
-                    }
-                });
+                        url: "/Account/CheckName",
+                        type: "POST",
+                        data: {
+                            "name": $("#name").val()
+                        },
+                        success: function (data) {
+                            $("#pp").text(data);
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
 
-    }
-
-    function OnConfirmPassword()
-    {
-        var password1 = $("#password").val();
-        var password2 = $("#password2").val();
-        if (password1 != password2)
-        {
-            $("#pp").text("密码不一致...");
-            return false;
         }
-        else
-        {
-            $("#pp").text("密码一致");
-            return true;
-        }
-    }
-    $(function()
-    {
-        $("#password2").change(OnConfirmPassword);
-    });
 
-    $(function () {
-        $("#name").change(OnUserName)
-    });
-</script>
+        function OnConfirmPassword() {
+            var password1 = $("#password").val();
+            var password2 = $("#password2").val();
+            if (password1 != password2) {
+                $("#pp").text("密码不一致...");
+                return false;
+            }
+            else {
+                $("#pp").text("密码一致");
+                return true;
+            }
+        }
+        $(function () {
+            $("#password2").change(OnConfirmPassword);
+        });
+
+        $(function () {
+            $("#name").change(OnUserName)
+        });
+    </script>

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "信息";
+    ViewBag.Location = "首页 > 信息";
+}
+
+
+<h1>@ViewBag.Title</h1>
+<div class="btndiv row col-md-10" style="min-height:500px">
+    <label>
+        @if (ViewBag.Message != null)
+        {
+            @ViewBag.Message
+        }
+    </label>
+    <a href="javascript:history.go(-1)">返回</a>
+    @if (ViewBag.SendToUrl != null)
+    {
+        <a href="@ViewBag.SendToUrl">确认</a>
+    }
+</div>
