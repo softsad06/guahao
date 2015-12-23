@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = "查看预约单";
-    ViewBag.Location = "首页 > 查看预约单";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        + "查看预约单");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

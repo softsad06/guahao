@@ -2,72 +2,75 @@
 
 @{
     ViewBag.Title = "预约信息";
-    ViewBag.Location = "首页 > 预约信息";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        + Html.ActionLink("查看预约单", "Index", "Appointments") + " > "
+        + "预约信息");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>@ViewBag.Title</h1>
+
 <div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.doctor.name,"预约医生")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.doctor.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.hospital.name,"预约医院")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hospital.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.user.name,"预约用户")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.time,"预约时间")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.time)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.price,"应缴费用")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.status, "缴费状态")
-        </dt>
-
-        <dd>
-            @if (Model.status == 0)
-            {
-                @Html.Label("未缴费")
-            }
-            else
-            {
-                @Html.Label("已缴费")
-            }
-        </dd>
-
-    </dl>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.doctor.name, "预约医生")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.doctor.name)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.hospital.name, "预约医院")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.hospital.name)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.user.name, "预约用户")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.user.name)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.time, "预约时间")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.time)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.price, "应缴费用")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.price)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.status, "缴费状态")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @if (Model.status == 0)
+                    {
+                        @Html.Label("未缴费")
+                    }
+                    else
+                    {
+                        @Html.Label("已缴费")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
- 
-    @Html.ActionLink("回到主页", "Index")
-</p>
+<div class="btndiv">
+    <a href="javascript:history.go(-1);">返回</a>
+</div>

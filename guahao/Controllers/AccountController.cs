@@ -28,13 +28,27 @@ namespace guahao.Controllers
             if (ModelState.IsValid)
             {
                 userinfo.password = userinfo.Md5Helper(userinfo.password);
-                user u = db.user.FirstOrDefault(x => x.password == userinfo.password&&x.name==userinfo.name);
-                if (u==null)
-                    return View();
+                user u = db.user.FirstOrDefault(x => x.password == userinfo.password && x.name == userinfo.name);
+                if (u == null)
+                {
+                    ViewBag.NextUrl = "~/Account/Login";
+                    ViewBag.Message = "登陆出错。请检查用户名或密码是否填写正确";
+                    return View("~/Views/Shared/Message.cshtml");
+                }
                 Session["user"] = userinfo.name;
-                return RedirectToAction("Index", "Home");
+                //如果session有存储查询期间的信息，将跳转到查询到的医生页面
+                if (Session["hospital"] != null && Session["department"] != null && Session["doctor"] != null)
+                {
+                    return RedirectToAction("DoctorDetail", "Hospital");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            return View();
+            ViewBag.NextUrl = "~/Account/Login";
+            ViewBag.Message = "登陆出错。请检查用户名或密码是否填写正确";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
 
@@ -43,13 +57,13 @@ namespace guahao.Controllers
             return View();
         }
 
-        public string CheckName(string name)
+        public bool CheckName(string name)
         {
             user u = db.user.FirstOrDefault(x => x.name == name);
             if (u != null)
-                return "该用户名已存在";
+                return false;
             else
-                return "该用户名可用";
+                return true;
         }
 
         [HttpPost]
@@ -59,22 +73,32 @@ namespace guahao.Controllers
             {
                 user u = db.user.FirstOrDefault(x => x.name == userinfo.name);
                 if (u != null)
-                    return View();
+                {
+                    ViewBag.NextUrl = "~/Account/Login";
+                    ViewBag.Message = "注册出错。请检查用户名或密码是否填写正确";
+                    return View("~/Views/Shared/Message.cshtml");
+                }
                 userinfo.id = db.user.Count() + 1;
                 userinfo.password = userinfo.Md5Helper(userinfo.password);
                 userinfo.credict_rank = 5;
                 db.user.Add(userinfo);
                 db.SaveChanges();
-                return RedirectToAction("Login", "Account");
+                ViewBag.NextUrl = "~/Account/Login";
+                ViewBag.Message = "恭喜您，账号" + userinfo.name + "注册成功。";
+                return View("~/Views/Shared/Message.cshtml");
             }
-            return View();
+            ViewBag.NextUrl = "~/Account/Login";
+            ViewBag.Message = "注册出错。请检查用户名或密码是否填写正确";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
         public ActionResult Logout()
         {
             Session.Remove("user");
-            return RedirectToAction("Index", "Home");
-
+            //ViewBag.NextUrl();
+            ViewBag.Message = "登出成功。";
+            ViewBag.NextUrl = "~";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
         public ActionResult UserInfo()
@@ -104,7 +128,9 @@ namespace guahao.Controllers
             userchange.social_id = userinfo.social_id != null ? userinfo.social_id : userchange.social_id;
             userchange.real_name = userinfo.real_name != null ? userinfo.real_name : userchange.real_name;
             db.SaveChanges();
-            return RedirectToAction("UserInfo", "Account");
+            ViewBag.NextUrl = "~/Account/UserInfo";
+            ViewBag.Message = "信息填写完成。管理员将根据您输入的个人身份数据，对此账号进行审核。审核通过后，您可以使用预约功能。";
+            return View("~/Views/Shared/Message.cshtml");
         }
     }
 

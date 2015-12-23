@@ -2,7 +2,10 @@
 
 @{
     ViewBag.Title = "医生列表";
-    ViewBag.Location = "首页 > 医生列表";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        +Html.ActionLink("医院列表", "HospitalList", "Hospital") + " > "
+         + Html.ActionLink("科室列表", "DepartmentList", "Hospital") + " > "
+    + "医生列表");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<guahao.Models.appointment>
 
 @{
-    ViewBag.Title = "管理员首页";
-    ViewBag.Location = "首页 > 管理员首页";
+    ViewBag.Title = "预约单管理";
+    ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+         + "预约单管理");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1>@ViewBag.Title</h1>
 
 <p>
     @Html.ActionLink("Create New", "Create")

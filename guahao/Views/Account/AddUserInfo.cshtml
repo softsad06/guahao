@@ -16,7 +16,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+        <div class="row col-md-10">
+            <label><font color="#a50">请填写真实姓名与身份证号，以便管理员进行审核</font></label>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.real_name,"真实姓名", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

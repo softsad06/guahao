@@ -2,11 +2,14 @@
 
 @{
     ViewBag.Title = "医生信息";
-    ViewBag.Location = "首页 > 医生列表 > 医生信息";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        + Html.ActionLink("医院列表", "HospitalList", "Hospital") + " > "
+         + Html.ActionLink("科室列表", "DepartmentList", "Hospital") + " > "
+    + "医生信息");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Session["hospital"] - @ViewBag.Title</h1>
+<h1>@Session["hospital"] - @Session["department"] - @Session["doctor"] - @ViewBag.Title</h1>
 
 
 
@@ -20,7 +23,7 @@
     <div class="col-md-9">
         <div class="row col-md-12">
             <div class="col-md-3 leftdiv">
-                @Html.LabelFor(model => model.name, "医生名称")
+                @Html.LabelFor(model => model.name, "医生姓名")
             </div>
             <div class="col-md-8 rightdiv">
                 <label>@Html.DisplayFor(model => model.name)</label>
@@ -28,7 +31,7 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-3 leftdiv">
-                @Html.LabelFor(model => model.department.name, "所在科室")
+                @Html.LabelFor(model => model.department.name, "所属科室")
             </div>
             <div class="col-md-8 rightdiv">
                 <label>@Html.DisplayFor(model => model.department.name)</label>
@@ -36,7 +39,7 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-3 leftdiv">
-                @Html.LabelFor(model => model.rank, "医生等级")
+                @Html.LabelFor(model => model.rank, "级别")
             </div>
             <div class="col-md-8 rightdiv">
                 <label>专家</label>
@@ -44,7 +47,7 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-3 leftdiv">
-                @Html.LabelFor(model => model.specialty, "医生专长")
+                @Html.LabelFor(model => model.specialty, "专长")
             </div>
             <div class="col-md-8 rightdiv">
                 <label>@Html.DisplayFor(model => model.specialty)</label>
@@ -60,6 +63,28 @@
         </div>
     </div>
 </div>
+<div style="display:none">
+    <div class="row col-md-11">
+        <label for="date"> 请选择要预约的日期</label>
+        <div class="keyword">
+            <input type="date" name="date" class="gray" id="date" value="" />
+            <input type="hidden" id="doctorId" value="@Model.id" />
+            <button type="submit" class="btn-doctor" onclick="searchByDate()">查询</button>
+        </div>
+    </div>
+
+    <label for="date">可预约时段</label>
+    <table class="table" id="dateSelectTable">
+        <thead>
+            <tr>
+                <th>时间</th>
+                <th>费用</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 <div class="row col-md-12">
     <div class="col-md-2 leftdiv">
         @Html.LabelFor(model => model.introduction, "医生介绍")
@@ -70,5 +95,43 @@
 </div>
 <div class="row col-md-12 btndiv">
     <a href="javascript:history.go(-1);">返回</a>
-    @Html.ActionLink("预约医生", "Create", "Appointments", new { did = @Model.id }, null)
+    @Html.ActionLink("预约", "Create", "Appointments", new { did = @Model.id }, null)
 </div>
+<script>
+    function searchByDate()
+    {
+        var did = $("#doctorId").val();
+        var date=$("#date").val();
+        $.ajax({
+            url: "@Url.Action("getVisitsByDate","Hospital")",
+            type: "POST",
+            data: {
+                'did': did,
+                'date':date
+            },
+            success: function (data) {
+                showDates(data);
+            },
+            error: function () {
+                alert("查询出错");
+            }
+        });
+    }
+
+    //刷新table显示的日期
+    function showDates(data)
+    {
+        var table = $("#dateSelectTable tbody");
+        var content = "";
+        for (i = 0; i < data.length; i++)
+        {
+            content += "<tr>";
+            content += "<td>" + data[i].date + "</td>";
+            content += "<td>" + data[i].price + "</td>";
+            content += "<td><a href='@Url.Content("~/Appointments/Create/")"+ + data[i].id + "' >预约</a></td>";
+            content += "</tr>";
+        }
+        table.html(content);
+    }
+
+</script>

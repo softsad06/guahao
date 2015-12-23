@@ -327,3 +327,15 @@ button{
     font-size: 14px;
     cursor: pointer
 }
+.alertMessage{
+	padding:10px;
+	padding-left:50px;
+	font:Bold 16px Arial;
+	background-color:rgba(255, 250, 2550, .6);
+}
+.messageText{
+	font:20px Arial, Helvetica, sans-serif;
+	color:#666;
+	margin-left:100px;
+	margin-bottom:60px;
+}

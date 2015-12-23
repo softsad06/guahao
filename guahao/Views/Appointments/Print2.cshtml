@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "打印挂号单";
-    ViewBag.Location = "首页 > 打印挂号单";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        + Html.ActionLink("查看预约单", "Index", "Appointments") + " > "
+        + "打印挂号单");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

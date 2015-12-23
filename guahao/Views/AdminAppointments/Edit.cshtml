@@ -1,12 +1,14 @@
 ﻿@model guahao.Models.appointment
 
 @{
-    ViewBag.Title = "管理预约单";
-    ViewBag.Location = "首页 > 管理预约单";
+    ViewBag.Title = "编辑预约单";
+    ViewBag.Location = Html.Raw(Html.ActionLink(Url.Action("Deatils", "Administrators"), "管理员") + " > "
+        + Html.ActionLink(Url.Action("Index", "AdminAppointments"), "预约单管理") + " > "
+        + "编辑预约单");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h1>@ViewBag.Title</h1>
 
 @using (Html.BeginForm())
 {

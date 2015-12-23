@@ -53,13 +53,19 @@ namespace guahao.Controllers
             }
 
             if (Session["user"]==null)
-                return RedirectToAction("Login", "Account");
+            {
+                ViewBag.NextUrl = "~/Account/Login";
+                ViewBag.Message = "请先注册或登录。";
+                return View("~/Views/Shared/Message.cshtml");
+            }
             string uname = Session["user"].ToString();
             user user = db.user.FirstOrDefault(a => a.name == uname);
             // the case that user not login or not activated or has been black
             if (user==null||user.is_activated==null||user.credict_rank<=0)
             {
-                return RedirectToAction("Login", "Account");
+                ViewBag.NextUrl = "~/Account/UserInfo";
+                ViewBag.Message = "您的账号还未实名认证，或者信用等级过低，无法进行预约操作。";
+                return View("~/Views/Shared/Message.cshtml");
             }
            
             ViewBag.user_id = user.id;
@@ -74,12 +80,17 @@ namespace guahao.Controllers
             //the case that user had ordered more than 3 doctor at the same time
             int  app = db.appointment.Count(o => o.user_id == user.id&&o.time==dt);
             if (app>3)
-                return RedirectToAction("Index", "Home");
-
+            {
+                ViewBag.Message = "同一时间段内不能预约超过三个医生，请稍后再试。";
+                return View("~/Views/Shared/Message.cshtml");
+            }
             //the case order the same doctor
             var appp = db.appointment.FirstOrDefault(o => o.user_id == user.id && o.time == dt && o.doctor_id == did);
-            if (appp!=null)
-                return RedirectToAction("Index");
+            if (appp != null)
+            {
+                ViewBag.Message = "不能重复预约。";
+                return View("~/Views/Shared/Message.cshtml");
+            }
             //the case order the a doctor which in the same depatment
             //var apppp = db.appointment.Include(o => o.doctor.department_id == doctor.department_id).FirstOrDefault(o => o.user_id == user.id && o.time == dt);
             var apppp = from a in db.appointment
@@ -88,7 +99,10 @@ namespace guahao.Controllers
                         where d.department_id==doctor.department_id
                         select a;
             if (apppp.Count()>=1)
-                return RedirectToAction("Index");
+            {
+                ViewBag.Message = "不能在同一时间段内预约同一科室的医生。";
+                return View("~/Views/Shared/Message.cshtml");
+            }
             var depart = db.department.FirstOrDefault(d=>d.id==doctor.department_id);
             var hospital = db.hospital.Find(depart.hospital_id);
             ViewBag.hospital_id = hospital.id;
@@ -110,13 +124,16 @@ namespace guahao.Controllers
                 visit v = db.visit.FirstOrDefault(o => o.date == dt && o.doctor_id == appointment.doctor_id);
                 v.number -= 1;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.NextUrl = "~/Appointments/Index";
+                ViewBag.Message = "预约单提交成功！请查看您的预约信息。";
+                return View("~/Views/Shared/Message.cshtml");
             }
 
             ViewBag.doctor_id = new SelectList(db.doctor, "id", "name", appointment.doctor_id);
             ViewBag.hospital_id = new SelectList(db.hospital, "id", "name", appointment.hospital_id);
             ViewBag.user_id = new SelectList(db.user, "id", "name", appointment.user_id);
-            return View(appointment);
+            ViewBag.Message = "预约失败。请查看您的预约信息是否正确。";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
        

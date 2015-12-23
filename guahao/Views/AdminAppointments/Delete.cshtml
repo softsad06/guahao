@@ -2,11 +2,13 @@
 
 @{
     ViewBag.Title = "删除预约单";
-    ViewBag.Location = "首页 > 新建预约单";
+    ViewBag.Location = ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+       + Html.ActionLink("预约单管理", "Index", "AdminAppointments") + " > "
+       + "删除预约单");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h1>@ViewBag.Title</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>

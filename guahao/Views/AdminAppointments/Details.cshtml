@@ -2,11 +2,13 @@
 
 @{
     ViewBag.Title = "预约单详情";
-    ViewBag.Location = "首页 > 预约单详情";
+    ViewBag.Location = ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+       + Html.ActionLink("预约单管理", "Index", "AdminAppointments") + " > "
+       + "预约单详情");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>@ViewBag.Title</h1>
 
 <div>
     <h4>appointment</h4>

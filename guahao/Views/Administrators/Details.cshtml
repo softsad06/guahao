@@ -2,56 +2,45 @@
 
 @{
     ViewBag.Title = "管理员信息";
-    ViewBag.Location = "首页 > 管理员信息";
+    ViewBag.Location = "管理员 > 管理员信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.Title</h1>
 
 <div>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.name,"管理员名")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.hospital_id,"管理员医院")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.hospital_id)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.permission,"管理员权限")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.permission)
-        </dd>
-
-    </dl>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.LabelFor(model => model.name, "管理员账号")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @Html.DisplayFor(model => model.name)
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3 leftdiv">
+                    @Html.Label("所属医院")
+                </div>
+                <div class="col-md-8 rightdiv">
+                    @ViewBag.hospital
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-
-
+<div class="btndiv">
     @if (Model.permission == 0)
     {
-        @Html.ActionLink("审核注册信息", "UserList", "Administrators");<br>
-        @Html.ActionLink("审核是否预约", "BlackList", "Administrators") ;<br>
-        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;<br>
-        @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");<br>
+        @Html.ActionLink("审核注册信息", "UserList", "Administrators");
+        @Html.ActionLink("审核是否预约", "BlackList", "Administrators") ;
+        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;
+        @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");
     }
     else
     {
-        @Html.ActionLink("核查预约信息", "Index", "AdminAppointments")<br>
+        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;
     }
-
-
-    @Html.ActionLink("返回登录", "Login")
-</p>
+    @Html.ActionLink("退出登录", "Login")
+</div>

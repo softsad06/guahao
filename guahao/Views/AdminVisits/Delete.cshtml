@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "删除出诊信息";
-    ViewBag.Location = "首页 > 删除出诊信息";
+    ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+       + Html.ActionLink("出诊信息管理", "Index", "AdminVisits") + " > "
+       + "删除出诊信息");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<guahao.Models.visit>
 
 @{
-    ViewBag.Title = "管理员首页";
-    ViewBag.Location = "首页 > 管理员首页";
+    ViewBag.Title = "出诊信息管理";
+    ViewBag.Location = Html.Raw(Html.ActionLink("管理员","Deatils", "Administrators") + " > "
+        + "出诊信息管理");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

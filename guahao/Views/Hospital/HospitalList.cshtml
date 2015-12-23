@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<guahao.Models.hospital>
 @{
     ViewBag.Title = "医院列表";
-    ViewBag.Location = "首页 > 医院列表";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+    + "医院列表");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

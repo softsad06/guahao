@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = "取消预约";
-    ViewBag.Location = "首页 > 取消预约";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+        + "取消预约");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

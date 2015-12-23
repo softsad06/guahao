@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<guahao.Models.user>
 
 @{
-    ViewBag.Title = "待审核用户列表";
-    ViewBag.Location = "首页 > 待审核用户列表";
+    ViewBag.Title = "审核注册信息";
+    ViewBag.Location = Html.Raw(Html.ActionLink( "管理员","Deatils", "Administrators") + " > "
+         + "审核注册信息");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.Title</h1>
 
 <table class="table">
     <tr>

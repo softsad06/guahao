@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Web.Mvc;
 using guahao.Models;
+using System.Web.Script.Serialization;
 using System.Data.Entity;
 
 namespace guahao.Controllers
@@ -61,6 +62,7 @@ namespace guahao.Controllers
 
         public ActionResult HospitalDetail(int? id)
         {
+            Session["department"] = "";
             var hosDetail = db.hospital.Find(id);
             if (hosDetail == null)
             {
@@ -74,30 +76,35 @@ namespace guahao.Controllers
         {
             int number = 20;
             int page = 1;
+            Session["department"] = "";
             if (ModelState.IsValid)
             {
+                //如果直接进入此页面，根据session找对应的医院
+                if (id == null)
+                {
+                    if (Session["hospital"] != null)
+                    {
+                        var hosp = db.hospital.Where(h => h.name == Session["hospital"]).FirstOrDefault();
+                        if (hosp == null)
+                        {
+                            return HttpNotFound();
+                        }
+                        else
+                        {
+                            id = hosp.id;
+                        }
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
+                }
                 var dep = db.department.Where(o => o.hospital_id == id).OrderBy(o => o.id).Skip((page - 1) * number).Take(number).ToList();
                 return View(dep);
             }else{
                 return View();
             }
         }
-
-        public ActionResult DepartmentDetail(int? id)
-        {
-            var depDetail = db.department.Find(id);
-            if (depDetail == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                Session["department"] = depDetail.name;
-                return View(depDetail);
-            }
-        }
-
-
         public ActionResult DoctorList(int ?id, string date)
         {
             int number = 20;
@@ -125,6 +132,7 @@ namespace guahao.Controllers
                 }
 
             }
+            Session["department"] = "";
             return View();
         }
         
@@ -137,7 +145,24 @@ namespace guahao.Controllers
 
         public ActionResult DoctorDetail(int? id)
         {
-            //Session["user"] = "lykeven";
+            if (id == null)
+            {
+                //根据Session原有记录打开相应的医生页面
+                if(Session["hospital"]!=null && Session["department"]!=null && Session["doctor"]!=null)
+                {
+                    string hname = Session["hospital"].ToString();
+                    string dname = Session["department"].ToString();
+                    string docname = Session["doctor"].ToString();
+                    var deps1 = db.hospital.Where(h => h.name == hname).FirstOrDefault();
+                    if (deps1 != null)
+                    {
+                        var deps = deps1.department;
+                        var docs = deps.Where(d => d.name == dname).First().doctor;
+                        var docDetail1 = docs.Where(doc => doc.name == docname).First();
+                        return View(docDetail1);
+                    }
+                }
+            }
             var docDetail = db.doctor.Find(id);
             if (docDetail == null)
             {
@@ -145,9 +170,41 @@ namespace guahao.Controllers
             }
             else
             {
-                Session["dotor"] = docDetail.name;
+                Session["doctor"] = docDetail.name;
                 return View(docDetail);
             }
+        }
+
+        public ActionResult getVisitsByDate(int did,string date)
+        {
+            DateTime datetime = new DateTime(1999,1,1);
+            try{
+                 datetime=DateTime.Parse(date);
+            }catch(Exception){}
+            var res = db.visit.Where(v => v.doctor_id == did && v.date.Date == datetime.Date);
+            return View();
+            //return Json(SerializeDataTable(res));
+        }
+
+        /// <summary>DataTable序列化
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        private List<Dictionary<string, object>> SerializeDataTable(DataTable dt)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+            foreach (DataRow dr in dt.Rows)//每一行信息，新建一个Dictionary<string,object>,将该行的每列信息加入到字典
+            {
+                Dictionary<string, object> result = new Dictionary<string, object>();
+                foreach (DataColumn dc in dt.Columns)
+                {
+                    result.Add(dc.ColumnName, dr[dc].ToString());
+                }
+                list.Add(result);
+            }
+            return list;
+            //return serializer.Serialize(list);//调用Serializer方法 
         }
 
 

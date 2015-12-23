@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "出诊信息查看";
-    ViewBag.Location = "首页 > 出诊信息查看";
+    ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+       + Html.ActionLink("出诊信息管理", "Index", "AdminVisits") + " > "
+       + "出诊信息查看");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

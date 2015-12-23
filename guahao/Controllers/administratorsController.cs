@@ -35,18 +35,25 @@ namespace guahao.Controllers
             {
                 var admin = db.administrator.FirstOrDefault(o => o.name == adm.name && o.password == adm.password);
                 if (admin == null)
-                    return View();
+                {
+                    ViewBag.NextUrl = "~/Administrators/Login";
+                    ViewBag.Message = "登录失败：系统中无此管理员。";
+                    return View("~/Views/Shared/Message.cshtml");
+                }
                 Session["admin"] = admin.name;
                 return RedirectToAction("Details", "Administrators");
             }
-            return View();
+            ViewBag.NextUrl = "~/Administrators/Login";
+            ViewBag.Message = "登录失败：账号信息有误。";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
         public ActionResult Logout()
         {
             Session.Remove("admin");
-            return RedirectToAction("Login", "Administrators");
-
+            ViewBag.NextUrl = "~/Administrators/Login";
+            ViewBag.Message = "您已成功登出。";
+            return View("~/Views/Shared/Message.cshtml");
         }
 
         public ActionResult Details()
@@ -57,6 +64,7 @@ namespace guahao.Controllers
             var admin = db.administrator.FirstOrDefault(o => o.name == adminname);
             if (admin == null)
                 return HttpNotFound();
+            ViewBag.hospital = db.hospital.Where(h => h.id == admin.hospital_id).First().name;
             return View(admin);
         }
 

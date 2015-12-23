@@ -12,6 +12,7 @@
                 <div class="form">
                     <form action="/Account/Signup" method="post">
                         <div class="form-group">
+                            <div id="pp" class="alertMessage" style="display:none"></div>
                             <div class="col-xs-12  ">
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -37,11 +38,10 @@
                         </div>
                         <div class="form-group form-actions">
                             <div class="col-xs-4 col-xs-offset-4 ">
-                                <button type="submit" class="btn btn-sm btn-info"></span>注册</button>
+                                <button type="submit" class="btn btn-sm btn-info">注册</button>
                             </div>
                             <button type="reset" class="btn btn-sm btn-warning">重置</button>
                         </div>
-                        <div id="pp" class="col-md-offset-2 col-md-10"></div>
                     </form>
                 </div>
             </div>
@@ -50,6 +50,7 @@
     </div>
     <script>
         function OnUserName() {
+            $("#pp").hide();
             $.ajax(
                     {
                         url: "/Account/CheckName",
@@ -58,24 +59,35 @@
                             "name": $("#name").val()
                         },
                         success: function (data) {
-                            $("#pp").text(data);
+                            if (data == "True") {
+                                $("#pp").html("<font color=#0d0>用户名可用</font>");
+                                $("#pp").show();
+                            } else {
+                                $("#pp").html("<font color=#d00>用户名已被使用</font>");
+                                $("#pp").show();
+                            }
+                            
+                            //$("#pp").text(data);
                         },
                         error: function () {
-                            alert("请求失败");
+                            alert("注册失败");
                         }
                     });
 
         }
 
         function OnConfirmPassword() {
+            $("#pp").hide();
             var password1 = $("#password").val();
             var password2 = $("#password2").val();
             if (password1 != password2) {
-                $("#pp").text("密码不一致...");
+                $("#pp").html("<font color=#d00>两次输入密码不一致</font>");
+                $("#pp").show();
+                //$("#pp").text("密码不一致...");
                 return false;
             }
             else {
-                $("#pp").text("密码一致");
+                //$("#pp").text("密码一致");
                 return true;
             }
         }

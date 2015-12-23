@@ -1,9 +1,15 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "错误";
+    ViewBag.Location = Html.Raw(Html.ActionLink("首页", "Index", "Home") + " > "
+    + "错误");
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
 
+<h1>@ViewBag.Title</h1>
+<div class="btndiv row col-md-10" style="min-height:500px">
+    <label>请求有误。请返回之前页面。
+    </label>
+    <a href="javascript:history.go(-1)">返回</a>
+</div>
