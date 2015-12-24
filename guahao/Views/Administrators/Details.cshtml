@@ -37,8 +37,9 @@
     @if (Model.permission == 0)
     {
         @Html.ActionLink("审核注册信息", "UserList", "Administrators");
-        @Html.ActionLink("审核是否预约", "BlackList", "Administrators") ;
+        @Html.ActionLink("管理出诊信息", "Index", "AdminVisits") ;
         @Html.ActionLink("管理预约信息", "Index", "AdminAppointments");
+        @Html.ActionLink("违约惩罚", "BlackList", "Administrators") ;
     }
     else
     {

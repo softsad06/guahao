@@ -10,27 +10,27 @@
 <h1>@ViewBag.Title</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("创建预约单", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.doctor.name)
+           @Html.Label("预约医生")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.hospital.name)
+           @Html.Label("预约医院")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.name)
+           @Html.Label("预约用户")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.time)
+           @Html.Label("预约时间")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+          @Html.Label("缴费状态")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price)
+          @Html.Label("应缴费用")
         </th>
         <th></th>
     </tr>
@@ -56,9 +56,9 @@
             @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("编辑", "Edit", new { id=item.id }) |
+            @Html.ActionLink("具体信息", "Details", new { id=item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.id })
         </td>
     </tr>
 }

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "审核注册信息";
-    ViewBag.Location = Html.Raw(Html.ActionLink( "管理员","Deatils", "Administrators") + " > "
+    ViewBag.Location = Html.Raw(Html.ActionLink( "管理员","Details", "Administrators") + " > "
          + "审核注册信息");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,28 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.Label( "用户名")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.password)
+            @Html.Label("真实姓名")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.real_name)
+           @Html.Label("身份证号")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.social_id)
+            @Html.Label("电话号码")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tel)
+            @Html.Label("电子邮件")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+           @Html.Label("是否激活")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.is_activated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.credict_rank)
+            @Html.Label("信用等级")
         </th>
         <th></th>
     </tr>
@@ -43,9 +40,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.real_name)
         </td>

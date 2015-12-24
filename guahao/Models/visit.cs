@@ -9,15 +9,18 @@ namespace guahao.Models
     [Table("visit")]
     public partial class visit
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id { get; set; }
+        [Key]
+        public int id { get; set; } 
 
         public DateTime date { get; set; }
+
 
         public int doctor_id { get; set; }
 
         public int? number { get; set; }
 
         public int? price { get; set; }
+
+        public virtual doctor doctor { get; set; }
     }
 }

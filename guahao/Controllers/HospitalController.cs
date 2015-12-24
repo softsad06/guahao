@@ -183,14 +183,15 @@ namespace guahao.Controllers
 
             try {
                 var sb=datetime.Date;
-                var res = db.visit.Where(v => v.doctor_id == did && v.date == datetime).ToList();
+                DateTime nextDate = datetime.AddDays(1);
+                var res = db.visit.Where(v => v.doctor_id == did && v.date >= datetime && v.date<nextDate).ToList();
                 string result = "";
                 foreach (var d in res)
                 {
                     result += d.date.ToString() + ",";
                     result += d.number.ToString() + ",";
                     result += d.price.ToString() + ",";
-                    result += d.id.ToString() + ",";
+                    result += d.doctor_id.ToString() + ",";
                 }
                 if (result.Length >= 1) result = result.Substring(0, result.Length - 1);
                 return Content(result);

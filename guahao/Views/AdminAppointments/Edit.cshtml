@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "编辑预约单";
-    ViewBag.Location = Html.Raw(Html.ActionLink(Url.Action("Deatils", "Administrators"), "管理员") + " > "
-        + Html.ActionLink(Url.Action("Index", "AdminAppointments"), "预约单管理") + " > "
-        + "编辑预约单");
+    ViewBag.Location = ViewBag.Location = Html.Raw(Html.ActionLink("管理员", "Details", "Administrators") + " > "
+       + Html.ActionLink("预约单管理", "Index", "AdminAppointments") + " > "
+       + "编辑预约单");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

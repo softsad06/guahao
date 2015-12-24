@@ -80,7 +80,12 @@ namespace guahao.Controllers
                 {
                     date = Session["appointment_date"].ToString();
                 }
+                else
+                {
+                    
+                }
             }
+            Session["appointment_date"] = date;
             DateTime dt = Convert.ToDateTime(date);
             ViewBag.time = dt;
             //the case that user had ordered more than 3 doctor at the same time

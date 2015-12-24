@@ -2,29 +2,29 @@
 
 @{
     ViewBag.Title = "出诊信息管理";
-    ViewBag.Location = Html.Raw(Html.ActionLink("管理员","Deatils", "Administrators") + " > "
+    ViewBag.Location = Html.Raw(Html.ActionLink("管理员","Details", "Administrators") + " > "
         + "出诊信息管理");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("创建出诊信息", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.date)
+            @Html.Label("预约日期")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.doctor_id)
+            @Html.Label("预约医生")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.number)
+            @Html.Label("可预约数量")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price)
+           @Html.Label("预约费用")
         </th>
         <th></th>
     </tr>
@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.doctor_id)
+            @Html.DisplayFor(modelItem => item.doctor.name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.number)
@@ -44,9 +44,9 @@
             @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("编辑", "Edit", new { id=item.id }) |
+            @Html.ActionLink("具体信息", "Details", new { id=item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.id })
         </td>
     </tr>
 }

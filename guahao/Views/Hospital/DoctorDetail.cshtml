@@ -129,6 +129,7 @@
             content += "<td>" + data[i] + "</td>";
             content += "<td>" + data[i + 1] + "</td>";
             content += "<td>" + data[i + 2] + "</td>";
+            datetime = data[i];
             content += "<td><a href='@Url.Content("~/Appointments/Create?did=")" + data[i + 3] + "&date=" + datetime + "' >预约</a></td>";
             content += "</tr>";
         }

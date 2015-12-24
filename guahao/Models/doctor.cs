@@ -13,6 +13,7 @@ namespace guahao.Models
         public doctor()
         {
             appointment = new HashSet<appointment>();
+            visit = new HashSet<visit>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -39,5 +40,8 @@ namespace guahao.Models
         public virtual ICollection<appointment> appointment { get; set; }
 
         public virtual department department { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<visit> visit { get; set; }
     }
 }

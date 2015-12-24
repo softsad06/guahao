@@ -19,13 +19,19 @@ namespace guahao.Controllers
         {
             string username = Session["admin"].ToString();
             var admin = db.administrator.Where(a => a.name == username).First().hospital_id;
-            var res=(from hos in db.hospital.AsParallel()
-                     where hos.id==admin
-                    join dep in db.department.AsParallel() on hos.id equals dep.hospital_id
-                    join doc in db.doctor.AsParallel() on dep.id equals doc.department_id
-                    join vis in db.visit.AsParallel() on doc.id equals vis.doctor_id
-                          select vis);
-            return View(res.ToList().Take(50));
+            var per = db.administrator.Where(a => a.name == username).First().permission;
+            if(per==1)
+            {
+                var res = (from hos in db.hospital.AsParallel()
+                           where hos.id == admin
+                           join dep in db.department.AsParallel() on hos.id equals dep.hospital_id
+                           join doc in db.doctor.AsParallel() on dep.id equals doc.department_id
+                           join vis in db.visit.AsParallel() on doc.id equals vis.doctor_id
+                           select vis);
+                return View(res.ToList().Take(50));
+            }
+            return View(db.visit.ToList());
+
         }
 
         // GET: AdminVisits/Details/5

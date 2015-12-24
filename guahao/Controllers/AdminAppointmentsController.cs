@@ -17,6 +17,19 @@ namespace guahao.Controllers
         // GET: AdminAppointments
         public ActionResult Index()
         {
+            string username = Session["admin"].ToString();
+            var admin = db.administrator.Where(a => a.name == username).First().hospital_id;
+            var per = db.administrator.Where(a => a.name == username).First().permission;
+            if (per==1)
+            {
+                var res = (from hos in db.hospital.AsParallel()
+                           where hos.id == admin
+                           join dep in db.department.AsParallel() on hos.id equals dep.hospital_id
+                           join doc in db.doctor.AsParallel() on dep.id equals doc.department_id
+                           join app in db.appointment.AsParallel() on doc.id equals app.doctor_id
+                           select app);
+                return View(res.ToList().Take(50));
+            }
             var appointment = db.appointment.Include(a => a.doctor).Include(a => a.hospital).Include(a => a.user);
             return View(appointment.ToList());
         }

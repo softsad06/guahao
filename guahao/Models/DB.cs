@@ -8,7 +8,7 @@ namespace guahao.Models
     public partial class DB : DbContext
     {
         public DB()
-            : base("name=DB")
+            : base("name=DB1")
         {
         }
 
@@ -73,6 +73,12 @@ namespace guahao.Models
                 .HasMany(e => e.appointment)
                 .WithOptional(e => e.doctor)
                 .HasForeignKey(e => e.doctor_id);
+
+            modelBuilder.Entity<doctor>()
+                .HasMany(e => e.visit)
+                .WithRequired(e => e.doctor)
+                .HasForeignKey(e => e.doctor_id)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<hospital>()
                 .Property(e => e.tel)
